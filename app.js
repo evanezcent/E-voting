@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Jalanin router
+app.use('/', usersRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 
