@@ -1,7 +1,7 @@
 # E-voting
->```RUN with NPM START```
 
-**type localhost:3000**
+**RUN with NPM START**
+>```type localhost:3000```
 
 ## TODO :
 * Front-end :
