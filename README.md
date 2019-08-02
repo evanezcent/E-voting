@@ -6,15 +6,15 @@
 ## TODO :
 * Front-end :
   - [x] Homepage 
-  - [ ] Login Admin
-  - [ ] Login User
-  - [ ] Dashboard Admin
-  - [ ] Input User
-  - [ ] Input Kandidat
+  - [x] Login Admin
+  - [x] Login User
+  - [x] Dashboard Admin
+  - [x] Input User
+  - [x] Input Kandidat
   - [ ] Statistik Suara
   - [x] Dashboard User 
-  - [ ] List Visi Misi Kandidat
-  - [ ] Detail Kandidat
+  - [x] List Visi Misi Kandidat
+  - [x] Detail Kandidat
   - [x] Halaman Vote
 	
 * Back-end :
