@@ -2,17 +2,17 @@
 
 ## TODO :
 * Front-end :
-  - [ ] Homepage 
+  - [x] Homepage 
   - [ ] Login Admin
   - [ ] Login User
   - [ ] Dashboard Admin
   - [ ] Input User
   - [ ] Input Kandidat
   - [ ] Statistik Suara
-  - [ ] Dashboard User 
+  - [x] Dashboard User 
   - [ ] List Visi Misi Kandidat
   - [ ] Detail Kandidat
-  - [ ] Halaman Vote
+  - [x] Halaman Vote
 	
 * Back-end :
   - [ ] Add User
@@ -28,3 +28,6 @@
   - [ ] Ecncrypt Password
   - [ ] User Session
   - [ ] Log Out
+
+```RUN with NPM RUN```
+type localhost:3000

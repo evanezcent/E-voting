@@ -1,8 +1,171 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+    padding: 5vh auto;
+    max-width: 100vw;
+    width: 100vw;
+    margin: 0 auto;
+}
+.container-fluid{
+    padding:  0 0;
+    margin: 0 0;
+}
+.title{
+    margin: 7vh 0;
+    position: relative;
+    color: #3489eb;
+}
+.subtitle h3{
+    margin-top: 17vh;
+    float: left;
+    color: #3489eb;
+}
+.login form .form-control{
+    margin-top: 5vh;
+}
+.kiri{
+    float: left;
+}
+.kanan{
+    float: right;
+}
+.kiri, .kanan{
+    position: relative;
+    width: 40vw;
+}
+#form{
+    padding: 0 3vw;
+    position: relative;
+    margin-bottom: 5vh;
+    margin-left: 5vw;
+}
+#footer{
+    margin-top: auto;
+    position: relative;
+    background-color: #3489eb;
+    height: 10vh;
+    padding-top: 3vh;
+    color: white;
+    font-weight: bold;
+}
+#footer-h{
+    margin-top: 5px;
+    background-color: #3489eb;
+    /* height: 10vh; */
+    padding-top: 3vh;
+    color: white;
+    font-weight: bold;
 }
 
-a {
-  color: #00B7FF;
+.btn{
+    background-color: #3489eb;
+    color: white
+}
+.btn-register{
+    background-color: #fc0352;
+    color: white
+}
+
+.banner img{
+    width: 100vw;
+    margin-top: -20vh;
+}
+.opsi{
+    justify-content: center;
+}
+.vote-kandidat, .visi-misi{
+    margin: 1em 3em;
+    margin-top: 3em;
+}
+.opsi .icon{
+    width: 25vw;
+    margin: 5vh auto;
+}
+.opsi .subtitle{
+    position: absolute;
+    margin: 2em auto;
+    color: #3489eb;
+}
+.icon img{
+    width: 100%;
+    position: relative;
+    z-index: -1;
+    box-shadow: 0 10px 10px;
+}
+.icon h3{
+    position: absolute;
+    margin: 0 7vw;
+    margin-top: 25vh;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+.vote-kandidat legend{
+    margin-left: 5vw;
+}
+
+@media (max-width: 1125px){
+    .icon h3{
+        margin-top: 20vh;
+    }
+}
+@media (max-width: 900px){
+    body{
+        width: 100vw;
+        text-align: center;
+    }
+    .title{
+        margin: 10vh auto;
+        margin-left: 7vw;
+    }
+    #profil{
+        width: 90vw;
+        padding: 4vh 5vw;
+        text-align: center;
+        position: relative;
+        /* height: 92vh; */
+    }
+    #form{
+        margin-left: 0;
+        width: 90vw;
+        height: 90vh;
+    }
+    .kiri{
+        width: 90vw;
+    }
+    .kiri img{
+        width: 90%;
+    }
+    .kanan{
+        width:75vw;
+        padding:4vh 5vw;
+        margin-left: 5vw;
+        height:auto;
+        display:block;
+        text-align: center;
+    }
+    .title{
+        text-align: center;
+    }
+    .subtitle h3{
+        margin-top: 7vh;
+    }
+
+    .banner{
+        width: 100vw;
+    }
+    .banner img{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .container-fluid{
+        width: 100vw;
+        padding:  0 0;
+        margin: 0 0;
+    }
+    .icon h3{
+        margin-top: 6vh;
+        font-size: 10px;
+    }
+    #footer{
+        margin-top: auto;
+    }
 }
