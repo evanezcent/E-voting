@@ -28,6 +28,6 @@
   - [ ] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
   - [ ] Authentication User and Admin Login
   - [ ] Connect MongoDB
-  - [ ] Ecncrypt Password
+  - [ ] Encrypt Password
   - [ ] User Session
   - [ ] Log Out
