@@ -1,4 +1,7 @@
 # E-voting
+>```RUN with NPM START```
+
+**type localhost:3000**
 
 ## TODO :
 * Front-end :
@@ -28,6 +31,3 @@
   - [ ] Ecncrypt Password
   - [ ] User Session
   - [ ] Log Out
-
-```RUN with NPM RUN```
-type localhost:3000
