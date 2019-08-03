@@ -18,16 +18,17 @@
   - [x] Halaman Vote
 	
 * Back-end :
-  - [ ] Add User
+  - [x] Add User (Kurang Notice)
   - [ ] Add Kandidat
-  - [ ] Login User
-  - [ ] Login Admin
+  - [x] Login User (Kurang Notice)
+  - [x] Login Admin (Kurang Notice)
   - [ ] Upload Image
   - [ ] Get Data Kandidat
   - [ ] Get Data User
   - [ ] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
   - [ ] Authentication User and Admin Login
-  - [ ] Connect MongoDB
+  - [x] Connect MongoDB
   - [ ] Encrypt Password
   - [ ] User Session
+  - [ ] Admin Session
   - [ ] Log Out

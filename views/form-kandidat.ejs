@@ -1,56 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style-admin.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-0c38nfCMzF8w8DBI+9nTWzApOpr1z0WuyswL4y6x/2ZTtmj/Ki5TedKeUcFusC/k" crossorigin="anonymous">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <a class="navbar-brand" href="#">EVOTTE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="drop-akun" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Admin
-            </a>
-            <div class="dropdown-menu" aria-labelledby="drop-akun">
-                <a class="dropdown-item" href="#">Edit Profil</a>
-                <hr>
-                <a class="dropdown-item text-muted" href="#">Sign Out</a>
-            </div>
-
-        </div>
-    </nav>
-
-    <div class="left-bar">
-        <ul class="list-group">
-            <a href="/admin/dashboard">
-                <li><i class="fas fa-tachometer-alt"></i></i>Dashboard</li>
-            </a>
-            <a data-toggle="collapse" href="#collapse-user" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <li><i class="fas fa-users-cog"> </i>Manajemen</li>
-            </a>
-            <div class="collapse" id="collapse-user">
-                <a href="/admin/user">
-                    <li><i class="fas fa-user"></i>Pemilih</li>
-                </a>
-                <a href="/admin/kandidat">
-                    <li><i class="fas fa-user-tie"></i>Kandidat</li>
-                </a>
-            </div>
-            <a href="http://">
-                <li><i class="fas fa-chart-bar"></i>Live Count</li>
-            </a>
-        </ul>
-    </div>
+<% include template/header-admin %>
 
     <div class="right-bar">
         <div class="dashboard">
@@ -74,7 +22,7 @@
                             <textarea class="form-control" id="visi" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="misi"><b>misi : </b></label>
+                            <label for="misi"><b>Misi : </b></label>
                             <textarea class="form-control" id="misi" rows="3"></textarea>
                         </div>
 
