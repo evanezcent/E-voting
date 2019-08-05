@@ -2,8 +2,9 @@
 
 **Install Depedencies**
 > npm start
+
 **Run Project**
->npm start ----> ```localhost:3000/```
+>npm start type ```localhost:3000/```
 
 ## TODO :
 * Front-end :
