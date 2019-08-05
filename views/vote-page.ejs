@@ -19,18 +19,20 @@
 
     <div class="jumbotron">
         <div class="list-kandidat d-flex justify-content-center">
+            <% list.forEach(function(list){ %>
             <div class="card animated fadeInDownBig" style="width: 20rem;">
-                <img src="/images/J.jpg" class="card-img-top" alt="...">
+                <img src="../<%= list.kandidatImg %>" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Kandidat 1</h5>
+                    <h5 class="card-title text-center"><%= list.nama %></h5>
                 </div>
                 <div class="button-card card-footer d-flex">
                     <a href="#" class="btn btn-success">Piih</a>
                     <a href="#" class="btn btn-warning">Detail</a>
                 </div>
             </div>
+            <% }); %>
 
-            <div class="card animated fadeInDownBig" style="width: 20rem;">
+            <!-- <div class="card animated fadeInDownBig" style="width: 20rem;">
                 <img src="/images/P.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Kandidat 2</h5>
@@ -39,7 +41,7 @@
                     <a href="#" class="btn btn-success">Piih</a>
                     <a href="#" class="btn btn-warning">Detail</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

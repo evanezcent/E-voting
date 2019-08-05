@@ -1,38 +1,40 @@
 <% include template/header-admin %>
 
-    <div class="right-bar">
-        <div class="dashboard">
-            <div class="box box-user">
-                <div class="header">
-                    <h3 class="d-inline">Daftar Pemilih</h3>
-                    <a href="/admin/input-user" class="d-inline btn btn-md btn-success float-right">Tambah Pemilih</a>
-                </div>
+<div class="right-bar">
+    <div class="dashboard">
+        <div class="box box-user">
+            <div class="header">
+                <h3 class="d-inline">Daftar Pemilih</h3>
+                <a href="/admin/input-user" class="d-inline btn btn-md btn-success float-right">Tambah Pemilih</a>
+            </div>
 
-                <div class="table-user container            ">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">NIS</th>
-                                <th scope="col">Kelas</th>
-                                <th scope="col">Opsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
+            <div class="table-user container            ">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">NIS</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Opsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% list.forEach(function(list, idx){ %>
+                        <tr>
+                            <th scope="row"><%= idx+1 %></th>
+                            <td><%= list.nama %></td>
+                            <td><%= list.nis %></td>
+                            <td><%= list.kelas %></td>
+                            <td>
+                                <div class="btn-opsi">
+                                    <a href="http://" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="http://" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        <!-- <tr>
                                 <th scope="row">2</th>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
@@ -115,32 +117,32 @@
                                         <a href="http://" class="btn btn-sm btn-danger">Delete</a>
                                     </div>
                                 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="page">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                            </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="page">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="footer" class="text-center">
-        <P>Copyright 2019</P>
-    </div>
+<div id="footer" class="text-center">
+    <P>Copyright 2019</P>
+</div>
 
 
 </body>
@@ -150,9 +152,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        if($(window).width() < 600) {
+        if ($(window).width() < 600) {
             $('nav').removeClass('fixed-top');
-        }    
+        }
     });
 </script>
+
 </html>

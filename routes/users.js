@@ -1,45 +1,60 @@
 var express = require('express');
 var router = express.Router();
 
-User = require('../models/User');
+var User = require('../models/User');
+var Kandidat = require('../models/Kandidat');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('homepage',{title: 'Homepage'})
+router.get('/', function (req, res, next) {
+  res.render('homepage', { title: 'Homepage' })
 });
 
 // USER LOGIN HANDLER
-router.post('/loginUser', (req,res) => {
+router.post('/loginUser', (req, res) => {
   const nis = req.body.nis;
 
-  User.findOne({nis : nis})
+  User.findOne({ nis: nis })
     .then(pemilih => {
-      if(pemilih){
+      if (pemilih) {
         res.redirect('/users/dashboard');
       }
-      else{
+      else {
         res.redirect('/');
       }
     })
 
 });
 
-router.route('/dashboard').get(function(req,res){
+router.route('/dashboard').get(function (req, res) {
   res.render('dashboardUser');
 });
 
 
 // router.get('/dashboard', (req,res) => res.render('dashboardUser'));
 
-router.get('/vote', function(req, res, next) {
-  res.render('vote-page',{title: 'Vote'})
+router.get('/vote', function (req, res, next) {
+  Kandidat.find((err, docs) => {
+    if (!err) {
+      res.render("vote-page", { list: docs });
+    }
+    else {
+      console.log('Error :' + err);
+    }
+  });
 });
 
-router.get('/list', function(req, res, next) {
-  res.render('list-kandiat',{title: 'List Kandidat'})
+router.get('/list', function (req, res, next) {
+  Kandidat.find((err, docs) => {
+    if (!err) {
+      res.render("list-kandidat", { list: docs });
+    }
+    else {
+      console.log('Error :' + err);
+    }
+  });
 });
 
-router.get('/visimisi', function(req, res, next) {
-  res.render('visimisi-page',{title: 'Visi Misi'})
+router.get('/visimisi', function (req, res, next) {
+  res.render('visimisi-page', { title: 'Visi Misi' })
 });
 module.exports = router;

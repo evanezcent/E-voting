@@ -18,8 +18,9 @@
 
 
     <div class="kandidat container">
-        <div class="gambar-kandidat text-center">
-            <img src="/images/J.jpg" alt="">
+        <% list.forEach(function(list){ %>
+        <div class="gambar-kandidat text-center mt-3">
+            <img src="../<%= list.kandidatImg %>" alt="UNKNOWN" width="200vw">
         </div>
 
         <div class="detail">
@@ -27,19 +28,20 @@
                 <tbody>
                     <tr>
                         <td><b>Nama Calon</b></td>
-                        <td>Jokowi</td>
+                        <td><%= list.nama %></td>
                     </tr>
                     <tr>
                         <td><b>Visi</b></td>
-                        <td>Visi saya adalah Visi</td>
+                        <td><%= list.visi %></td>
                     </tr>
                     <tr>
                         <td><b>Misi</b></td>
-                        <td>Misi saya mewujudkan misi</td>
+                        <td><%= list.misi %></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <% }); %>
 
         <div class="btn-back float-right">
             <a href="./list-vm.html" class="btn btn-success">Kembali</a>

@@ -23,6 +23,7 @@ app.set('view engine', 'ejs');
 
 // app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('uploads'));
 
 app.use(logger('dev'));
 app.use(express.json());

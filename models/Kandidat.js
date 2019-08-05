@@ -13,13 +13,12 @@ const kandidatSchema = new mongoose.Schema({
         type: String,
         required: true 
     },
-    foto :{
+    kandidatImg :{
         type: String,
         required: true 
     },
-    tipeFoto :{
-        type: String,
-        required: true 
+    suara :{
+        type: Number
     }
 });
 

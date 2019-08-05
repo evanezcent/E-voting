@@ -19,12 +19,12 @@
 	
 * Back-end :
   - [x] Add User (Kurang Notice)
-  - [ ] Add Kandidat
+  - [x] Add Kandidat (Kurang Notice)
   - [x] Login User (Kurang Notice)
   - [x] Login Admin (Kurang Notice)
-  - [ ] Upload Image
-  - [ ] Get Data Kandidat
-  - [ ] Get Data User
+  - [x] Upload Image
+  - [x] Get Data Kandidat
+  - [x] Get Data User
   - [ ] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
   - [ ] Authentication User and Admin Login
   - [x] Connect MongoDB
