@@ -10,36 +10,27 @@
 
             <div class="list-kandidat d-flex">
                 <% list.forEach(function(list){ %>
+                <% if(list.deleteStatus != true){ %>
                 <div class="card" style="width: 15rem;">
                     <img src="../<%= list.kandidatImg %>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center"><%= list.nama %></h5>
                         <div id="card-btn1" class="button-card d-flex">
-                            <a href="#" class="btn btn-success">View</a>
-                            <a href="#" class="btn btn-warning">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="/admin/detail/<%= list._id %>" class="btn btn-success">View</a>
+                            <a href="/admin/edit-kandidat/<%= list._id %>" class="btn btn-warning">Edit</a>
+                            <a href="/admin/delete-kandidat/<%= list._id %>" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>
+                <% } %>
                 <% }); %>
 
-                <!-- <div class="card" style="width: 15rem;">
-                    <img src="/images/P.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Kandidat 2</h5>
-                        <div id="card-btn2" class="button-card d-flex">
-                            <a href="#" class="btn btn-success">View</a>
-                            <a href="#" class="btn btn-warning">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
 </div>
 
-<div id="footer" class="text-center">
+<div id="footer" class="text-center fixed-bottom">
     <P>Copyright 2019</P>
 </div>
 
@@ -53,6 +44,7 @@
     $(document).ready(function () {
         if ($(window).width() < 600) {
             $('nav').removeClass('fixed-top');
+            $('#footer').removeClass('fixed-bottom');
             $('#card-btn1').removeClass('d-flex');
             $('#card-btn2').removeClass('d-flex');
         }

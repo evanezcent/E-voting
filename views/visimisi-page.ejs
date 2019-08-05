@@ -20,7 +20,7 @@
     <div class="kandidat container">
         <% list.forEach(function(list){ %>
         <div class="gambar-kandidat text-center mt-3">
-            <img src="../<%= list.kandidatImg %>" alt="UNKNOWN" width="200vw">
+            <img src="/<%= list.kandidatImg %>" alt="UNKNOWN" width="200vw">
         </div>
 
         <div class="detail">
@@ -44,7 +44,7 @@
         <% }); %>
 
         <div class="btn-back float-right">
-            <a href="./list-vm.html" class="btn btn-success">Kembali</a>
+            <a href="/admin/kandidat" class="btn btn-success">Kembali</a>
             <a href="/users/dashboard" class="btn btn-dark">Home</a>
         </div>
     </div>

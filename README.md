@@ -23,21 +23,20 @@ Then in browser type ```localhost:3000/```
   - [x] Halaman Vote
 	
 * Back-end :
-  - [x] Add User (Kurang Notice)
-  - [x] Add Kandidat (Kurang Notice)
-  - [x] Login User (Kurang Notice)
-  - [x] Login Admin (Kurang Notice)
+  - [x] Add User
+  - [x] Add Kandidat
+  - [x] Login User
+  - [x] Login Admin
   - [x] Upload Image
   - [x] Get Data Kandidat
   - [x] Get Data User
-  - [ ] Edit Kandidat
-  - [ ] Edit User
-  - [ ] Delete Admin
-  - [ ] Delete Kandidat
+  - [x] Edit Kandidat (Kurang Handler)
+  - [x] Edit User (Kurang Handler)
+  - [x] Delete Admin
+  - [x] Delete Kandidat
   - [ ] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
-  - [ ] Authentication User and Admin Login
+  - [x] Authentication User and Admin Login
   - [x] Connect MongoDB
-  - [ ] Encrypt Password
   - [ ] User Session
   - [ ] Admin Session
   - [ ] Log Out

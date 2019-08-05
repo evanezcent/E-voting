@@ -20,104 +20,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% list.forEach(function(list, idx){ %>
+                        <% var idx = 1; %>
+                        <% list.forEach(function(list){ %>
+                        <% if(list.status != true){ %>
+
                         <tr>
-                            <th scope="row"><%= idx+1 %></th>
+                            <th scope="row"><%= idx %></th>
                             <td><%= list.nama %></td>
                             <td><%= list.nis %></td>
                             <td><%= list.kelas %></td>
                             <td>
                                 <div class="btn-opsi">
-                                    <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="http://" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="/admin/edit-user/<%= list._id %>" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="/admin/delete-user/<%= list._id %>" class="btn btn-sm btn-danger">Delete</a>
                                 </div>
                             </td>
                         </tr>
+                        <% idx = idx + 1; %>
+                        <% } %>
                         <% }); %>
-                        <!-- <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">7</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">8</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>Otto</td>
-                                <td>
-                                    <div class="btn-opsi">
-                                        <a href="http://" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="http://" class="btn btn-sm btn-danger">Delete</a>
-                                    </div>
-                                </td>
-                            </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -140,7 +61,7 @@
     </div>
 </div>
 
-<div id="footer" class="text-center">
+<div id="footer" class="text-center fixed-bottom">
     <P>Copyright 2019</P>
 </div>
 
@@ -154,6 +75,7 @@
     $(document).ready(function () {
         if ($(window).width() < 600) {
             $('nav').removeClass('fixed-top');
+            $('#footer').removeClass('fixed-bottom');
         }
     });
 </script>

@@ -17,6 +17,10 @@ const kandidatSchema = new mongoose.Schema({
         type: String,
         required: true 
     },
+    deleteStatus :{
+        type: Boolean,
+        required: true 
+    },
     suara :{
         type: Number
     }

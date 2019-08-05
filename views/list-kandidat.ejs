@@ -23,22 +23,12 @@
             <div class="card animated zoomIn" style="width: 20rem;">
                 <img src="../<%= list.kandidatImg %>" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <a href="/users/visimisi">
+                    <a href="/users/visimisi<%= list._id %>">
                         <h5 class="card-title text-center"><%= list.nama %></h5>
                     </a>
                 </div>
             </div>
             <% }); %>
-
-
-            <!-- <div class="card animated zoomIn" style="width: 20rem;">
-                <img src="/images/P.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a href="/users/visimisi">
-                        <h5 class="card-title">Kandidat 2</h5>
-                    </a>
-                </div>
-            </div> -->
         </div>
     </div>
 

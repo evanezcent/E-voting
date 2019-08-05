@@ -9,6 +9,9 @@ body{
 .title{
     margin-top: 20vh;
 }
+#deleteForm{
+    margin-top: 0;
+}
 .box-login{
     background-color: #3489eb;
     border-radius: 1em;
