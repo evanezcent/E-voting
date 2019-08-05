@@ -1,7 +1,9 @@
 # E-voting
 
-**RUN with NPM START**
->```type localhost:3000/```
+**Install Depedencies**
+> npm start
+**Run Project**
+>npm start ----> ```localhost:3000/```
 
 ## TODO :
 * Front-end :
