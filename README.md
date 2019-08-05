@@ -4,7 +4,9 @@
 > npm start
 
 **Run Project**
->npm start type ```localhost:3000/```
+>npm start
+
+Then in browser type ```localhost:3000/```
 
 ## TODO :
 * Front-end :
