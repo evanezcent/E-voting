@@ -1,7 +1,7 @@
 # E-voting
 
 **Install Depedencies**
-> npm start
+> npm install
 
 **Run Project**
 >npm start
