@@ -30,6 +30,10 @@ Then in browser type ```localhost:3000/```
   - [x] Upload Image
   - [x] Get Data Kandidat
   - [x] Get Data User
+  - [ ] Edit Kandidat
+  - [ ] Edit User
+  - [ ] Delete Admin
+  - [ ] Delete Kandidat
   - [ ] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
   - [ ] Authentication User and Admin Login
   - [x] Connect MongoDB
