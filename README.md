@@ -38,5 +38,5 @@ Then in browser type ```localhost:3000/```
   - [x] Authentication User and Admin Login (Kurang Notice)
   - [x] Connect MongoDB
   - [ ] User Session
-  - [ ] Admin Session
-  - [ ] Log Out
+  - [x] Admin Session
+  - [x] Admin Log Out
