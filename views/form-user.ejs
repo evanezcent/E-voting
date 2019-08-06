@@ -7,6 +7,12 @@
                 <h3 class="d-inline"><b>Tambah Pemilih</b></h3>
             </div>
 
+            <% if (msg != "") { %>
+            <div class="alert alert-danger" role="alert">
+                <b><%= msg %></b>
+            </div>
+            
+            <% }%>
             <div class="form-add-user">
                 <form action="/admin/inputUser" method="POST">
                     <div class="form-group">

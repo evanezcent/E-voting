@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var moongose = require('mongoose');
-
+var session = require('express-session');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 
@@ -12,7 +12,7 @@ var app = express();
 
 // DB Config
 const db = require('./database/database').MongoURI;
-moongose.connect(db, {useNewUrlParser : true})
+moongose.connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connection success'))
   .catch(err => console.log(err));
 
@@ -30,6 +30,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'evotte',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+});
 
 //Jalanin router
 app.use('/', usersRouter);
