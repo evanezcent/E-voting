@@ -12,6 +12,10 @@ body{
 #deleteForm{
     margin-top: 0;
 }
+#msg-admin{
+    width: 300px;
+    margin: 2vh auto;
+}
 .box-login{
     background-color: #3489eb;
     border-radius: 1em;

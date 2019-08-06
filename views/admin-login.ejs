@@ -15,6 +15,11 @@
         <h2 class="text-center"><b>Admin</b> EVOTTE</h2>
     </div>
 
+    <% if (msg != "") { %>
+    <div id="msg-admin" class="alert alert-danger text-center"role="alert">
+        <b><%= msg %></b>
+    </div>
+    <% }%>
     <div class="box-login">
         <h4 class="text-center">Silahkan LOGIN</h4>
         <form action="/admin/loginAdmin" method="POST">

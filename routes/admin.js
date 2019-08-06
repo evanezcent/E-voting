@@ -23,7 +23,7 @@ var upload = multer({
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('admin-login')
+    res.render('admin-login', {msg: ""})
 });
 router.get('/logout', (req, res) => {
     req.session.destroy();
@@ -41,7 +41,7 @@ router.post('/loginAdmin', (req, res, next) => {
         console.log(req.session);
     }
     else {
-        res.redirect('/admin');
+        res.render('admin-login',{msg: "USERNAME atau PASSWORD SALAH !!!"});
     }
 });
 
