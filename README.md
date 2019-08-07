@@ -34,9 +34,11 @@ Then in browser type ```localhost:3000/```
   - [x] Edit User (Kurang Handler)
   - [x] Delete Admin
   - [x] Delete Kandidat
-  - [ ] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
+  - [x] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
   - [x] Authentication User and Admin Login (Kurang Notice)
   - [x] Connect MongoDB
-  - [ ] User Session
+  - [x] User Session
   - [x] Admin Session
   - [x] Admin Log Out
+  - [ ] Sum of Suara 
+
