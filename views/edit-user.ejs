@@ -9,6 +9,7 @@
 
             <div class="form-add-user">
                 <form action="/admin/editUser/<%= list._id %>" method="POST">
+                    <input type="text" class="form-control" value="<%= list._id %>" name="id" hidden>
                     <div class="form-group">
                         <label for=""><b>Nama : </b></label>
                         <input type="text" class="form-control" name="nama" value="<%= list.nama %>" required>

@@ -52,7 +52,7 @@ router.get('/dashboard', failLoginAdmin, (req, res) => {
 router.get('/detail/:id', failLoginAdmin, (req, res) => {
     Kandidat.find({ _id: req.params.id }, (err, docs) => {
         if (!err) {
-            res.render("visimisi-page", { list: docs, title: req.session.adminUser });
+            res.render("detail-page", { list: docs, title: req.session.adminUser });
         }
         else {
             console.log('Error :' + err);
@@ -94,6 +94,7 @@ router.post('/inputUser', (req, res) => {
                     nama: nama,
                     kelas: kelas,
                     kelamin: kelamin,
+                    deleteStatus: false,
                     status: false
                 });
 
@@ -111,7 +112,7 @@ router.post('/inputUser', (req, res) => {
 });
 // DELETE USER
 router.get('/delete-user/:id', failLoginAdmin, (req, res) => {
-    User.updateOne({ _id: req.params.id }, { $set: { status: true } }, (err, result) => {
+    User.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
         res.redirect('/admin/user');
     });
 });
@@ -130,8 +131,8 @@ router.get('/edit-user/:id', failLoginAdmin, (req, res) => {
 // EDIT USER HANDLER
 router.post('/editUser/:id', (req, res) => {
     // console.log(req.file);
-    const { nama, nis, kelas, kelamin } = req.body;
-    User.findOne({ nis: nis })
+    const { id, nama, nis, kelas, kelamin } = req.body;
+    User.findOne({ _id: id })
         .then(pemilih => {
             if (pemilih) {
                 //User Sudah Ada
@@ -184,7 +185,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
                     misi,
                     kandidatImg: foto,
                     deleteStatus: status,
-                    suara
+                    suara:suara
                 });
 
                 newKandidat.save().then(result => {

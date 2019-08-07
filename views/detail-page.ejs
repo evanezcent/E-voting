@@ -8,29 +8,44 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/vote-style.css">
-    <link rel="stylesheet" href="/css/animate.css">
 </head>
 
 <body class="container-fluid">
 
     <div class="title text-center">
-        <h2>DAFTAR KANDIDAT</h2>
+        <h2>Visi dan Misi</h2>
     </div>
 
-    <div class="jumbotron container">
-        <div class="list-kandidat d-flex justify-content-center">
-            <% list.forEach(function(list){ %>
-            <% if(list.deleteStatus != true){ %>
-            <div class="card animated zoomIn" style="width: 20rem;">
-                <img src="../<%= list.kandidatImg %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a href="/users/visimisi/<%= list._id %>">
-                        <h5 class="card-title text-center"><%= list.nama %></h5>
-                    </a>
-                </div>
-            </div>
-            <% } %>
-            <% }); %>
+
+    <div class="kandidat container">
+        <% list.forEach(function(list){ %>
+        <div class="gambar-kandidat text-center mt-3">
+            <img src="/<%= list.kandidatImg %>" alt="UNKNOWN" width="200vw">
+        </div>
+
+        <div class="detail">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td><b>Nama Calon</b></td>
+                        <td><%= list.nama %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Visi</b></td>
+                        <td><%= list.visi %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Misi</b></td>
+                        <td><%= list.misi %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <% }); %>
+
+        <div class="btn-back float-right">
+            <a href="/admin/kandidat" class="btn btn-success">Kembali</a>
+            <a href="/admin/dashboard" class="btn btn-dark">Home</a>
         </div>
     </div>
 

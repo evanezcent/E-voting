@@ -17,33 +17,33 @@
         <h2>DAFTAR KANDIDAT</h2>
     </div>
 
+
+
     <div class="jumbotron">
         <div class="list-kandidat d-flex justify-content-center">
             <% list.forEach(function(list){ %>
+            <% if(list.deleteStatus != true){ %>
             <div class="card animated fadeInDownBig" style="width: 20rem;">
                 <img src="../<%= list.kandidatImg %>" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-center"><%= list.nama %></h5>
                 </div>
                 <div class="button-card card-footer d-flex">
-                    <a href="#" class="btn btn-success">Piih</a>
-                    <a href="#" class="btn btn-warning">Detail</a>
+                    <% if(status == false) {%>
+                    <a href="/users/pilih/<%= list._id %>" class="btn btn-success">Piih</a>
+                    <% } %>
+                    <a href="/users/visimisi/<%= list._id %>" class="btn btn-warning">Detail</a>
                 </div>
             </div>
+            <% } %>
             <% }); %>
-
-            <!-- <div class="card animated fadeInDownBig" style="width: 20rem;">
-                <img src="/images/P.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Kandidat 2</h5>
-                </div>
-                <div class="button-card card-footer d-flex">
-                    <a href="#" class="btn btn-success">Piih</a>
-                    <a href="#" class="btn btn-warning">Detail</a>
-                </div>
-            </div> -->
+        </div>
+        <div id="home" class="text-center mt-3">
+            <a href="/users/dashboard" class="btn btn-dark" style="width: 30vw">Home</a>
         </div>
     </div>
+
+    
 
     <div id="footer" class="text-center">
         <P>Copyright 2019</P>

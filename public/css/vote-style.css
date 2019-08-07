@@ -62,4 +62,7 @@
     .button-card a{
         margin: 1vh auto;
     }
+    #home a{
+        margin: 0 auto;
+    }
 }

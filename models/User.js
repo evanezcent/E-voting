@@ -17,9 +17,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true 
     },
+    deleteStatus :{
+        type: Boolean,
+    },
     status :{
         type: Boolean,
-        required: true 
     }
 });
 
