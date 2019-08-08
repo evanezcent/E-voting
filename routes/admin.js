@@ -3,7 +3,7 @@ var router = express.Router();
 var multer = require('multer');
 var User = require('../models/User');
 var Kandidat = require('../models/Kandidat');
-var Busboy = require('busboy');
+var Admin = require('../models/Admin')
 
 const failLoginAdmin = (req, res, next) => {
     if (!req.session.adminUser) {
@@ -13,7 +13,7 @@ const failLoginAdmin = (req, res, next) => {
     }
 }
 
-// IMAGE UPLOADER
+// IMAGE UPLOADER 
 var upload = multer({
     storage: multer.diskStorage({
 
@@ -35,21 +35,74 @@ router.post('/loginAdmin', (req, res, next) => {
     var uname = req.body.uname;
     var pass = req.body.pass;
 
-    // console.log(uname);
-    if (uname == 'admin' && pass == 'admin0987') {
-        req.session.adminUser = uname;
-        res.redirect('/admin/dashboard');
-        console.log(req.session);
-    }
-    else {
-        res.render('admin-login', { msg: "USERNAME atau PASSWORD SALAH !!!" });
-    }
+    Admin.findOne({ username: uname })
+        .then(admin => {
+            if (admin && admin.password == pass) {
+                req.session.adminUser = admin;
+                console.log(req.session.adminUser);
+                res.redirect('/admin/dashboard');
+            }
+            else {
+                res.render('admin-login', { msg: "USERNAME atau PASSWORD SALAH !!!" });
+            }
+        });
+
 });
 
+// DASHBOARD ADMIN
 router.get('/dashboard', failLoginAdmin, (req, res) => {
     res.render('admin-dashboard', { title: req.session.adminUser });
 });
 
+// EDIT ADMIN PAGE
+router.get('/edit', failLoginAdmin, (req, res) => {
+    res.render('admin-edit', { msg: "", title: req.session.adminUser })
+});
+// EDIT ADMIN HANDLER
+router.post('/edit-admin', (req, res) => {
+    const { id, uname, fullname, pass } = req.body;
+    Admin.findOne({ _id: id })
+        .then(admin => {
+            // console.log(admin)
+            if (admin && pass == admin.password) {
+                Admin.updateOne({ _id: req.body.id }, { $set: { username: uname, fullname: fullname } }, (err, result) => {
+                    req.session.adminUser.fullname = fullname;
+                    res.redirect('/admin/dashboard');
+                });
+            }
+            else {
+                res.render("admin-edit", { msg: "PASSWORD NOT MATCH !", title: req.session.adminUser });
+            }
+        });
+});
+
+// CHANGE ADMIN PASSWORD PAGE
+router.get('/change-pass', failLoginAdmin, (req, res) => {
+    res.render('change-password', { msg: "", title: req.session.adminUser })
+});
+// CHANGE ADMIN PASSSWORD HANDLER
+router.post('/change', (req, res) => {
+    const { id, pass, repass } = req.body;
+    Admin.findOne({ _id: id })
+        .then(admin => {
+            console.log(admin)
+            if (admin && pass == repass) {
+                if (pass.length < 6) {
+                    res.render("change-password", { msg: "PASSWORD IS TOO SHORT !", title: req.session.adminUser });
+                }
+                else {
+                    Admin.updateOne({ _id: req.body.id }, { $set: { password: pass } }, (err, result) => {
+                        req.session.adminUser.password = pass;
+                        res.redirect('/admin/dashboard');
+                    });
+                }
+            }
+            else {
+                res.render("change-password", { msg: "PASSWORD NOT MATCH !", title: req.session.adminUser });
+            }
+        });
+});
+// LOOK FOR KANDIDAT'S VISI MISI
 router.get('/detail/:id', failLoginAdmin, (req, res) => {
     Kandidat.find({ _id: req.params.id }, (err, docs) => {
         if (!err) {
@@ -61,6 +114,7 @@ router.get('/detail/:id', failLoginAdmin, (req, res) => {
     });
 });
 
+// PAGINATION
 router.get('/user/:page', failLoginAdmin, (req, res) => {
     let perPage = 10;
     let page = req.params.page || 1;
@@ -81,32 +135,22 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
                 });
             });
         });
-
-    // User.find((err, docs) => {
-    //     if (!err) {
-    //         res.render("admin-user", { list: docs, title: req.session.adminUser });
-    //     }
-    //     else {
-    //         console.log('Error :' + err);
-    //     }
-    // });
 });
+
+// FORM INPUT
 router.get('/input-user', failLoginAdmin, (req, res) => {
     res.render('form-user', { msg: "", scs: "", title: req.session.adminUser });
 });
 
 // INPUT USER HANDLE
 router.post('/inputUser', (req, res) => {
-    // console.log(req.body);
-    // res.redirect('/admin/dashboard');
+
     const { nama, nis, kelas, kelamin } = req.body;
 
-    // Cek Data Sudah Ada atau Belum
+    // Cek For User Data
     User.findOne({ nis: nis })
         .then(pemilih => {
             if (pemilih) {
-                //User Sudah Ada
-                // errors.push({ msg : "NIS sudah ada !"});
                 res.render("form-user", { msg: "NIS SUDAH ADA", title: req.session.adminUser });
             }
             else {
@@ -125,15 +169,14 @@ router.post('/inputUser', (req, res) => {
                     console.log(err);
                 });
 
-                //Haeusa
                 res.redirect('/admin/user/:1');
                 console.log(pemilihBaru);
             }
         });
 });
-// DELETE USER
+// DELETE USER HANDLER
 router.get('/delete-user/:id', failLoginAdmin, (req, res) => {
-    User.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
+    User.updateOne({ _id: req.params.id }, { $set: { nis: 0, deleteStatus: true } }, (err, result) => {
         res.redirect('/admin/user/:1');
     });
 });
@@ -151,7 +194,7 @@ router.get('/edit-user/:id', failLoginAdmin, (req, res) => {
 });
 // EDIT USER HANDLER
 router.post('/editUser/:id', (req, res) => {
-    // console.log(req.file);
+
     const { id, nama, nis, kelas, kelamin } = req.body;
     User.findOne({ _id: id })
         .then(pemilih => {
@@ -177,24 +220,21 @@ router.get('/kandidat', failLoginAdmin, (req, res) => {
         }
     });
 });
+// INPUT KANDIDAT PAGE
 router.get('/input-kandidat', failLoginAdmin, (req, res) => {
     res.render('form-kandidat', { msg: "", title: req.session.adminUser });
 });
-// Input Kandidat Handle
+// INPUT KANDIDAT HANDLER
 router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
-    // console.log(req.body);
-    console.log(req.file);
-    // res.redirect('/admin/dashboard');
+
     const { nama, visi, misi } = req.body;
     var foto = req.file.path;
     var status = false, suara = 0;
 
-    // Cek Data Sudah Ada atau Belum
+    // Check for Kandidat's Data
     Kandidat.findOne({ nama: nama })
         .then(kandidat => {
             if (kandidat) {
-                //User Sudah Ada
-                // errors.push({ msg : 'NIS sudah ada !'});
                 res.render('form-kandidat', { msg: "KANDIDAT SUDAH ADA !!!", title: req.session.adminUser });
             }
             else {
@@ -213,22 +253,19 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
                     console.log(err);
                 });
 
-                //Haeusa
                 res.redirect('/admin/kandidat');
             }
         });
 });
 // DELETE KANDIDAT
 router.get('/delete-kandidat/:id', failLoginAdmin, (req, res) => {
-    // console.log(req.body);
-    // res.redirect('/admin/dashboard');
-    var deleteStatus = true;
+
     Kandidat.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
         res.redirect('/admin/kandidat');
     });
 });
 
-// EDIT KANDIDAT
+// EDIT KANDIDAT PAGE
 router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
 
     Kandidat.findOne({ _id: req.params.id }, (err, docs) => {
@@ -240,23 +277,24 @@ router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
         }
     });
 });
-
-// EDIT KANDIDAT HANDLE
+// EDIT KANDIDAT HANDLER
 router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
+    // IF NOT CHANGE THE FOTO
     if (!req.file) {
         const { id, nama, visi, misi } = req.body;
 
-        Kandidat.updateOne({ _id: req.body.id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
+        Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
             res.redirect('/admin/kandidat');
         });
 
-    } else {
-        console.log(req.file.path);
+    }
+    else {
+        // console.log(req.file.path);
         const { id, nama, visi, misi } = req.body;
         const foto = req.file.path;
 
-        console.log("ADA FILE")
-        Kandidat.updateOne({ _id: req.body.id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
+        // console.log("ADA FILE")
+        Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
             res.redirect('/admin/kandidat');
         });
     }

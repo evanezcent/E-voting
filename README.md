@@ -23,7 +23,7 @@ Then in browser type ```localhost:3000/```
   - [x] Halaman Vote
   - [x] Edit Kandidat
   - [x] Edit User
-  - [ ] Edit Admin
+  - [x] Edit Admin
   - [x] Pagination
 	
 * Back-end :
@@ -36,7 +36,8 @@ Then in browser type ```localhost:3000/```
   - [x] Get Data User
   - [x] Edit Kandidat
   - [x] Edit User
-  - [x] Delete Admin
+  - [x] Edit Admin
+  - [x] Delete User
   - [x] Delete Kandidat
   - [x] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
   - [x] Authentication User and Admin Login

@@ -13,6 +13,9 @@ body{
 #dropdownMenuLink:hover{
     color: #fc0352;
 }
+.navbar-brand:hover{
+    color: #fc0352;
+}
 .title{
     margin-top: 20vh;
 }
@@ -50,6 +53,9 @@ form{
     font-weight: bold;
 }
 
+#adminn .form-group{
+    display: flex;
+}
 .dropdown-menu  .dropdown-item{
     font-size: 13px;
     font-weight: bold
@@ -76,20 +82,25 @@ nav a{
     background-color: #292828;
     font-size: 13px;
     font-weight: bold;
-    padding: 0 10px;
+    padding: 1vh 10px;
     margin: 10px 0;
-    padding: auto 0;
 }
-.list-group a {
+.list-group #a {
     color: white;
     text-decoration: none;
     border-bottom: 1px solid white;
     border-right: none;
     border-left: none;
 }
-.list-group li:hover{
-    font-size: 15px;
-    transition-delay: 1ms;
+.list-group>#a:hover{
+    border-left: 5px solid #fc0352
+}
+.collapse a{
+    color: white;
+    text-decoration: none;
+}
+.collapse li:hover{
+    border-left: 5px solid #fc0352
 }
 .list-group .fas{
     margin-right: 10px;
@@ -103,13 +114,18 @@ nav a{
 .dashboard{
     padding: 1vh 0;
 }
+
 .box{
     padding: 1vh 1vw;
     border: 1px solid #3489eb;
-    border-radius: 1em;
+    border-radius: 0.7em;
     margin: 1vh 1vw;
     height: auto;
     width: 76vw;
+}
+.box.box-user{
+    border-top: 5px solid #3489eb;
+    /* border-top-color: #fc0352; */
 }
 .header{
     margin: 0 1em;
@@ -172,6 +188,9 @@ nav a{
     .right-bar .box{
         margin: 0 auto;
         margin-top: 3vh;
+    }
+    #adminn .form-group{
+        display: block;
     }
     #admin{
         width: auto;
