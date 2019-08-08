@@ -35,7 +35,7 @@ Then in browser type ```localhost:3000/```
   - [x] Delete Admin
   - [x] Delete Kandidat
   - [x] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
-  - [x] Authentication User and Admin Login (Kurang Notice)
+  - [x] Authentication User and Admin Login
   - [x] Connect MongoDB
   - [x] User Session
   - [x] Admin Session
