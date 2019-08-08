@@ -6,7 +6,7 @@ var Kandidat = require('../models/Kandidat');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('homepage', { title: 'Homepage' })
+  res.render('homepage', { msg: '' })
 });
 
 router.get('/logout', (req, res) => {
@@ -34,7 +34,7 @@ router.post('/loginUser', (req, res) => {
         res.redirect('/users/dashboard');
       }
       else {
-        res.redirect('/');
+        res.render('homepage', { msg: 'USER Tidak ditemukan !!!' })
       }
     })
 

@@ -30,8 +30,8 @@ Then in browser type ```localhost:3000/```
   - [x] Upload Image
   - [x] Get Data Kandidat
   - [x] Get Data User
-  - [x] Edit Kandidat (Kurang Handler)
-  - [x] Edit User (Kurang Handler)
+  - [x] Edit Kandidat
+  - [x] Edit User
   - [x] Delete Admin
   - [x] Delete Kandidat
   - [x] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
@@ -40,5 +40,6 @@ Then in browser type ```localhost:3000/```
   - [x] User Session
   - [x] Admin Session
   - [x] Admin Log Out
+  - [x] Pagination (How to make 1 items after is include to the before page where it just have 9 item)
   - [ ] Sum of Suara 
 

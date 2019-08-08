@@ -25,6 +25,11 @@
 
 
     <div class="kanan">
+        <% if (msg != "") { %>
+          <div id="msg-admin" class="alert alert-danger text-center"role="alert">
+              <b><%= msg %></b>
+          </div>
+          <% }%>
       <div class="subtitle">
         <h3>Login to Vote</h3>
 

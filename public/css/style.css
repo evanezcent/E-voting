@@ -57,7 +57,8 @@ body{
 
 .btn{
     background-color: #3489eb;
-    color: white
+    color: white;
+    font-weight: bold;
 }
 .btn-register{
     background-color: #fc0352;

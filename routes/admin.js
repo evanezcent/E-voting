@@ -3,6 +3,7 @@ var router = express.Router();
 var multer = require('multer');
 var User = require('../models/User');
 var Kandidat = require('../models/Kandidat');
+var Busboy = require('busboy');
 
 const failLoginAdmin = (req, res, next) => {
     if (!req.session.adminUser) {
@@ -23,7 +24,7 @@ var upload = multer({
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('admin-login', {msg: ""})
+    res.render('admin-login', { msg: "" })
 });
 router.get('/logout', (req, res) => {
     req.session.destroy();
@@ -41,7 +42,7 @@ router.post('/loginAdmin', (req, res, next) => {
         console.log(req.session);
     }
     else {
-        res.render('admin-login',{msg: "USERNAME atau PASSWORD SALAH !!!"});
+        res.render('admin-login', { msg: "USERNAME atau PASSWORD SALAH !!!" });
     }
 });
 
@@ -60,15 +61,35 @@ router.get('/detail/:id', failLoginAdmin, (req, res) => {
     });
 });
 
-router.get('/user', failLoginAdmin, (req, res) => {
-    User.find((err, docs) => {
-        if (!err) {
-            res.render("admin-user", { list: docs, title: req.session.adminUser });
-        }
-        else {
-            console.log('Error :' + err);
-        }
-    });
+router.get('/user/:page', failLoginAdmin, (req, res) => {
+    let perPage = 10;
+    let page = req.params.page || 1;
+
+    User
+        .find({}) // finding all documents
+        .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
+        .limit(perPage) // output just 10 items
+        .exec((err, docs) => {
+            console.log(docs)
+            User.count((err, count) => { // count to calculate the number of pages
+                if (err) return next(err);
+                res.render('admin-user', {
+                    title: req.session.adminUser,
+                    current: page,
+                    pages: Math.ceil(count / perPage),
+                    list: docs,
+                });
+            });
+        });
+
+    // User.find((err, docs) => {
+    //     if (!err) {
+    //         res.render("admin-user", { list: docs, title: req.session.adminUser });
+    //     }
+    //     else {
+    //         console.log('Error :' + err);
+    //     }
+    // });
 });
 router.get('/input-user', failLoginAdmin, (req, res) => {
     res.render('form-user', { msg: "", scs: "", title: req.session.adminUser });
@@ -105,7 +126,7 @@ router.post('/inputUser', (req, res) => {
                 });
 
                 //Haeusa
-                res.render('form-user', { msg: "", title: req.session.adminUser });
+                res.redirect('/admin/user/:1');
                 console.log(pemilihBaru);
             }
         });
@@ -113,7 +134,7 @@ router.post('/inputUser', (req, res) => {
 // DELETE USER
 router.get('/delete-user/:id', failLoginAdmin, (req, res) => {
     User.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
-        res.redirect('/admin/user');
+        res.redirect('/admin/user/:1');
     });
 });
 // EDIT USER
@@ -135,14 +156,12 @@ router.post('/editUser/:id', (req, res) => {
     User.findOne({ _id: id })
         .then(pemilih => {
             if (pemilih) {
-                //User Sudah Ada
-                // errors.push({ msg : "NIS sudah ada !"});
-                res.render("form-user", { msg: "NIS SUDAH ADA", title: req.session.adminUser });
+                User.updateOne({ _id: req.body.id }, { $set: { nama, nis, kelas, kelamin } }, (err, result) => {
+                    res.redirect('/admin/user/1');
+                });
             }
             else {
-                User.updateOne({ _id: req.body.id }, { $set: { nama, nis, kelas, kelamin } }, (err, result) => {
-                    res.redirect('/admin/user');
-                });
+                res.render("form-user", { msg: "", title: req.session.adminUser });
             }
         });
 });
@@ -185,7 +204,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
                     misi,
                     kandidatImg: foto,
                     deleteStatus: status,
-                    suara:suara
+                    suara: suara
                 });
 
                 newKandidat.save().then(result => {
@@ -196,7 +215,6 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
 
                 //Haeusa
                 res.redirect('/admin/kandidat');
-                console.log(pemilihBaru);
             }
         });
 });
@@ -225,21 +243,24 @@ router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
 
 // EDIT KANDIDAT HANDLE
 router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
-    console.log(req.file);
-    const { nama, visi, misi } = req.body;
-    var foto = req.file.path;
+    if (!req.file) {
+        const { id, nama, visi, misi } = req.body;
 
-    Kandidat.findOne({ nama: nama })
-        .then(kandidat => {
-            if (kandidat) {
-                //User Sudah Ada
-                // errors.push({ msg : 'NIS sudah ada !'});
-                res.render('form-kandidat', { msg: "KANDIDAT SUDAH ADA !!!", title: req.session.adminUser });
-            } else {
-                Kandidat.updateOne({ _id: req.body.id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
-                    res.redirect('/admin/kandidat');
-                });
-            }
+        Kandidat.updateOne({ _id: req.body.id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
+            res.redirect('/admin/kandidat');
         });
+
+    } else {
+        console.log(req.file.path);
+        const { id, nama, visi, misi } = req.body;
+        const foto = req.file.path;
+
+        console.log("ADA FILE")
+        Kandidat.updateOne({ _id: req.body.id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
+            res.redirect('/admin/kandidat');
+        });
+    }
+
+
 });
 module.exports = router;

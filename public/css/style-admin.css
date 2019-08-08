@@ -6,6 +6,13 @@ body{
     width: 100vw;
     margin: 0 auto;
 }
+#dropdownMenuLink{
+    text-decoration: none;
+    color: white
+}
+#dropdownMenuLink:hover{
+    color: #fc0352;
+}
 .title{
     margin-top: 20vh;
 }
@@ -37,8 +44,8 @@ form{
 }
 #footer{
     background-color: #3489eb;
-    height: 10vh;
-    padding-top: 3vh;
+    height: 9vh;
+    padding-top: 2.5vh;
     color: white;
     font-weight: bold;
 }
@@ -121,13 +128,20 @@ nav a{
 .card, .button-card a{
     margin: 0 2px;
 }
-
+.header a, .btn-opsi a, .button-card a{
+    font-weight: bold;
+    color: white;
+}
 .list-kandidat{
     justify-content: center;
     margin: 3em 0;
+    display: flex;
 }
 .list-kandidat .card{
     margin: 0 5px;
+}
+#card-btn1{
+    display: flex;
 }
 .form-check{
     margin-left: 1em;
@@ -159,10 +173,22 @@ nav a{
         margin: 0 auto;
         margin-top: 3vh;
     }
+    #admin{
+        width: auto;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
     nav{
         display: flex;
     }
-    #card-btn1 a, #card-btn2 a{
+    .header a{
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+    .list-kandidat{
+        display: block;
+    }
+    #card-btn1 a{
         margin: 2px auto;
     }
     .page ul{

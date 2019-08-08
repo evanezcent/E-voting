@@ -8,14 +8,14 @@
                 <a href="/admin/input-kandidat" class="d-inline btn btn-md btn-success float-right">Tambah Kandidat</a>
             </div>
 
-            <div class="list-kandidat d-flex">
+            <div class="list-kandidat">
                 <% list.forEach(function(list){ %>
                 <% if(list.deleteStatus != true){ %>
                 <div class="card" style="width: 15rem;">
                     <img src="../<%= list.kandidatImg %>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center"><%= list.nama %></h5>
-                        <div id="card-btn1" class="button-card d-flex">
+                        <div id="card-btn1" class="button-card">
                             <a href="/admin/detail/<%= list._id %>" class="btn btn-success">View</a>
                             <a href="/admin/edit-kandidat/<%= list._id %>" class="btn btn-warning">Edit</a>
                             <a href="/admin/delete-kandidat/<%= list._id %>" class="btn btn-danger">Delete</a>
@@ -46,7 +46,6 @@
             $('nav').removeClass('fixed-top');
             $('#footer').removeClass('fixed-bottom');
             $('#card-btn1').removeClass('d-flex');
-            $('#card-btn2').removeClass('d-flex');
         }
     });
 </script>
