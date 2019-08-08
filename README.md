@@ -21,6 +21,10 @@ Then in browser type ```localhost:3000/```
   - [x] List Visi Misi Kandidat
   - [x] Detail Kandidat
   - [x] Halaman Vote
+  - [x] Edit Kandidat
+  - [x] Edit User
+  - [ ] Edit Admin
+  - [x] Pagination
 	
 * Back-end :
   - [x] Add User
