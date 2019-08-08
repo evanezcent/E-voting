@@ -25,6 +25,7 @@ Then in browser type ```localhost:3000/```
   - [x] Edit User
   - [x] Edit Admin
   - [x] Pagination
+  - [x] Change Password 
 	
 * Back-end :
   - [x] Add User
@@ -37,6 +38,7 @@ Then in browser type ```localhost:3000/```
   - [x] Edit Kandidat
   - [x] Edit User
   - [x] Edit Admin
+  - [x] Change Password Admin
   - [x] Delete User
   - [x] Delete Kandidat
   - [x] If User Have Been Use Their Chance to Choose, Vote Button Should Disappear
@@ -45,6 +47,8 @@ Then in browser type ```localhost:3000/```
   - [x] User Session
   - [x] Admin Session
   - [x] Admin Log Out
+  - [x] User Log Out
   - [x] Pagination (How to make 1 items after is include to the before page where it just have 9 item)
-  - [ ] Sum of Suara 
+  - [x] Sum of Suara 
+  - [ ] SHow Suara in Chart JS
 
