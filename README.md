@@ -16,7 +16,7 @@ Then in browser type ```localhost:3000/```
   - [x] Dashboard Admin
   - [x] Input User
   - [x] Input Kandidat
-  - [ ] Statistik Suara
+  - [x] Statistik Suara
   - [x] Dashboard User 
   - [x] List Visi Misi Kandidat
   - [x] Detail Kandidat
@@ -48,7 +48,7 @@ Then in browser type ```localhost:3000/```
   - [x] Admin Session
   - [x] Admin Log Out
   - [x] User Log Out
-  - [x] Pagination (How to make 1 items after is include to the before page where it just have 9 item)
+  - [x] Pagination
   - [x] Sum of Suara 
-  - [ ] SHow Suara in Chart JS
+  - [x] SHow Suara in Chart JS
 

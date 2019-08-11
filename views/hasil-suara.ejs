@@ -1,0 +1,74 @@
+<% include template/header-admin %>
+
+<div class="right-bar">
+    <div class="dashboard">
+        <div id="admin" class="box box-user">
+            <div class="header">
+                <canvas id="chart-suara">
+
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer" class="text-center fixed-bottom" style="z-index: -1;">
+    <P>Copyright 2019</P>
+</div>
+
+<span id='variableKandidat' hidden>
+    <%= JSON.stringify(dataK); %>
+</span>
+<span id='variableSuara' hidden>
+    <%= JSON.stringify(dataS); %>
+</span>
+<% var k = dataK %>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+
+    $(document).ready(function () {
+        if ($(window).width() < 600) {
+            $('nav').removeClass('fixed-top');
+        }
+    });
+
+    let chart = document.getElementById('chart-suara').getContext('2d');
+    chart.canvas.parentNode.style.width = '100%'
+    // let kandidat = JSON.parse($('#variableKandidat').text());
+    // $('#variableKandidat').remove();
+    // let suara = JSON.parse($('#variableSuara').text());
+    // $('#variableSuara').remove();
+
+    let kandidat = JSON.parse('<%- dataK %>'),
+        suara = JSON.parse('<%- dataS %>');
+
+    // console.log('Kandidat : ', kandidat, 'Suara : ', suara);
+
+    var myChart = new Chart(chart, {
+        type: 'pie',
+        data: {
+            labels: kandidat,
+            datasets: [{
+                label: 'Live Vote',
+                data: suara,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });  
+</script>
+
+</html>

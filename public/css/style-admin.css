@@ -171,6 +171,11 @@ nav a{
     margin-top: 3.5em;
 }
 
+#chart-suara{
+    /* width: 60vw !important;
+    height: 70vh !important; */
+}
+
 @media (max-width: 600px){
 
     .box-user{

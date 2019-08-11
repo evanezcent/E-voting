@@ -232,7 +232,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
     var status = false, suara = 0;
 
     // Check for Kandidat's Data
-    Kandidat.findOne({ nama: nama })
+    Kandidat.findOne({ deleteStatus: false, nama: nama })
         .then(kandidat => {
             if (kandidat) {
                 res.render('form-kandidat', { msg: "KANDIDAT SUDAH ADA !!!", title: req.session.adminUser });
@@ -301,4 +301,71 @@ router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
 
 
 });
+
+function getPostData(obj1, obj2) {
+    return obj1.map(function (row) {
+        var result = {};
+        obj2.forEach(function (key) {
+            result[key] = row[key];
+        });
+        return result;
+    });
+}
+
+function getSuara(postData) {
+    data = [];
+    var i = 0;
+    postData.forEach(function (content, callback) {
+        for (var key in content) {
+            // console.log('key: ' + key, ', value: ' + content[key]);
+            if (key == 'suara') {
+                data[i] = content[key];
+            }
+        }
+        i++;
+    });
+    return data;
+}
+
+function getKandidat(postData) {
+    data = [];
+    var i = 0;
+    postData.forEach(function (content, callback) {
+        for (var key in content) {
+            // console.log('key: ' + key, ', value: ' + content[key]);
+            if (key == 'nama') {
+                data[i] = content[key];
+            }
+        }
+        i++;
+    });
+    return data;
+}
+// HASIL SUARA PAGE
+// GET SUARA EVERY KANDIDATS
+router.get('/hasil-suara', failLoginAdmin, (req, res) => {
+    Kandidat.find({ deleteStatus: false }).then(kandidat => {
+        if (kandidat) {
+            console.log(kandidat)
+            console.log("==============")
+
+            var postData = getPostData(kandidat, ['nama', 'suara']);
+            console.log(postData);
+            console.log("==============")
+
+            var suara = getSuara(postData);
+            var kand = getKandidat(postData);
+
+            console.log('Kandidat : ', kand, "   Suara : ", suara);
+            console.log("==============")
+
+            res.render('hasil-suara', { 
+                dataK: JSON.stringify(kand),
+                dataS: JSON.stringify(suara),
+                title: req.session.adminUser
+            });
+        }
+    });
+});
+
 module.exports = router;
