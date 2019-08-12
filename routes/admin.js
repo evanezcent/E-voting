@@ -120,7 +120,7 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
     let page = req.params.page || 1;
 
     User
-        .find({}) // finding all documents
+        .find({ deleteStatus:false }) // finding all documents
         .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
         .limit(perPage) // output just 10 items
         .exec((err, docs) => {
