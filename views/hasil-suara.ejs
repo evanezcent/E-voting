@@ -7,6 +7,15 @@
                 <canvas id="chart-suara">
 
                 </canvas>
+                <!-- Sum of all Suara -->
+                <% var total = 0; %>
+                <% JSON.parse(dataS).forEach(function(suar){ %>
+                <% total = total + suar; %>
+                <% }); %>
+
+                <div class="text-center">
+                    <h5>Total suara : <%= total %></h5>
+                </div>
             </div>
         </div>
     </div>
@@ -15,14 +24,6 @@
 <div id="footer" class="text-center fixed-bottom" style="z-index: -1;">
     <P>Copyright 2019</P>
 </div>
-
-<span id='variableKandidat' hidden>
-    <%= JSON.stringify(dataK); %>
-</span>
-<span id='variableSuara' hidden>
-    <%= JSON.stringify(dataS); %>
-</span>
-<% var k = dataK %>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
@@ -39,16 +40,24 @@
 
     let chart = document.getElementById('chart-suara').getContext('2d');
     chart.canvas.parentNode.style.width = '100%'
-    // let kandidat = JSON.parse($('#variableKandidat').text());
-    // $('#variableKandidat').remove();
-    // let suara = JSON.parse($('#variableSuara').text());
-    // $('#variableSuara').remove();
 
+    // get data
     let kandidat = JSON.parse('<%- dataK %>'),
         suara = JSON.parse('<%- dataS %>');
 
-    // console.log('Kandidat : ', kandidat, 'Suara : ', suara);
+    // Make Color Generator
+    var coloR = [];
+    var dynamicColors = function () {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    };
+    for (var i in kandidat) {
+        coloR.push(dynamicColors());
+    }
 
+    // The Chart
     var myChart = new Chart(chart, {
         type: 'pie',
         data: {
@@ -56,13 +65,9 @@
             datasets: [{
                 label: 'Live Vote',
                 data: suara,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ],
+                backgroundColor: coloR,
                 borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)'
+                    "#111"
                 ],
                 borderWidth: 1
             }]
