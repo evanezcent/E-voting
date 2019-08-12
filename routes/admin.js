@@ -109,6 +109,7 @@ router.get('/detail/:id', failLoginAdmin, (req, res) => {
             res.render("detail-page", { list: docs, title: req.session.adminUser });
         }
         else {
+            res.send(404);
             console.log('Error :' + err);
         }
     });
@@ -166,6 +167,7 @@ router.post('/inputUser', (req, res) => {
                 pemilihBaru.save().then(result => {
                     console.log(result);
                 }).catch(err => {
+                    res.send(404);
                     console.log(err);
                 });
 
@@ -177,7 +179,8 @@ router.post('/inputUser', (req, res) => {
 // DELETE USER HANDLER
 router.get('/delete-user/:id', failLoginAdmin, (req, res) => {
     User.updateOne({ _id: req.params.id }, { $set: { nis: 0, deleteStatus: true } }, (err, result) => {
-        res.redirect('/admin/user/:1');
+        if (!err) res.redirect('/admin/user/:1');
+        else res.send(404);
     });
 });
 // EDIT USER
@@ -188,6 +191,7 @@ router.get('/edit-user/:id', failLoginAdmin, (req, res) => {
             res.render("edit-user", { list: docs, title: req.session.adminUser });
         }
         else {
+            res.send(404);
             console.log('Error :' + err);
         }
     });
@@ -211,11 +215,12 @@ router.post('/editUser/:id', (req, res) => {
 
 // KANDIDAT
 router.get('/kandidat', failLoginAdmin, (req, res) => {
-    Kandidat.find((err, docs) => {
+    Kandidat.find({ deleteStatus:false }, (err, docs) => {
         if (!err) {
             res.render("admin-kandidat", { list: docs, title: req.session.adminUser });
         }
         else {
+            res.send(404);
             console.log('Error :' + err);
         }
     });
@@ -250,6 +255,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
                 newKandidat.save().then(result => {
                     console.log(result);
                 }).catch(err => {
+                    res.send(404);
                     console.log(err);
                 });
 
@@ -261,7 +267,8 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
 router.get('/delete-kandidat/:id', failLoginAdmin, (req, res) => {
 
     Kandidat.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
-        res.redirect('/admin/kandidat');
+        if (!err) res.redirect('/admin/kandidat');
+        else res.send(404);
     });
 });
 
@@ -273,6 +280,7 @@ router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
             res.render("edit-kandidat", { list: docs, title: req.session.adminUser });
         }
         else {
+            res.send(404);
             console.log('Error :' + err);
         }
     });
@@ -284,7 +292,8 @@ router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
         const { id, nama, visi, misi } = req.body;
 
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
-            res.redirect('/admin/kandidat');
+            if(!err) res.redirect('/admin/kandidat');
+            else res.send(404);
         });
 
     }
@@ -295,7 +304,8 @@ router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
 
         // console.log("ADA FILE")
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
-            res.redirect('/admin/kandidat');
+            if(!err) res.redirect('/admin/kandidat');
+            else res.send(404);
         });
     }
 
@@ -346,18 +356,18 @@ function getKandidat(postData) {
 router.get('/hasil-suara', failLoginAdmin, (req, res) => {
     Kandidat.find({ deleteStatus: false }).then(kandidat => {
         if (kandidat) {
-            console.log(kandidat)
-            console.log("==============")
+            // console.log(kandidat)
+            // console.log("==============")
 
             var postData = getPostData(kandidat, ['nama', 'suara']);
-            console.log(postData);
-            console.log("==============")
+            // console.log(postData);
+            // console.log("==============")
 
             var suara = getSuara(postData);
             var kand = getKandidat(postData);
 
-            console.log('Kandidat : ', kand, "   Suara : ", suara);
-            console.log("==============")
+            // console.log('Kandidat : ', kand, "   Suara : ", suara);
+            // console.log("==============")
 
             res.render('hasil-suara', { 
                 dataK: JSON.stringify(kand),

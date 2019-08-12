@@ -6,7 +6,6 @@
 
     <div class="jumbotron container">
         <% for (var i=0; i< list.length; i++){ %>
-        <% if(list[i].deleteStatus != true){ %>
         <div class="list-kandidat justify-content-center">
             <div class="card animated zoomIn" style="width: 20rem;">
                 <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
@@ -28,7 +27,6 @@
             </div>
             <% } %>
         </div>
-        <% } %>
         <% }; %>
     </div>
     <div class="text-center mt-2 mb-2">

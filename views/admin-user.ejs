@@ -22,7 +22,6 @@
                     <tbody>
                         <% var idx = 1; %>
                         <% list.forEach(function(list){ %>
-                        <% if(list.deleteStatus != true){ %>
                         <tr>
                             <th scope="row"><%= idx %></th>
                             <td><%= list.nama %></td>
@@ -36,7 +35,6 @@
                             </td>
                         </tr>
                         <% idx = idx + 1; %>
-                        <% } %>
                         <% }); %>
                     </tbody>
                 </table>

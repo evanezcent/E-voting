@@ -26,7 +26,7 @@ router.get('/logout', (req, res) => {
 router.post('/loginUser', (req, res) => {
   const nis = req.body.nis;
 
-  User.findOne({ nis: nis })
+  User.findOne({ nis: nis, deleteStatus:false })
     .then(pemilih => {
       if (pemilih) {
         req.session.user = pemilih;
@@ -46,11 +46,12 @@ router.get('/dashboard', failLoginUser, (req, res) => {
 
 // LIST KANDIDAT
 router.get('/list', failLoginUser, function (req, res, next) {
-  Kandidat.find((err, docs) => {
+  Kandidat.find({ deleteStatus:false }, (err, docs) => {
     if (!err) {
       res.render("list-kandidat", { list: docs });
     }
     else {
+      res.send(404);
       console.log('Error :' + err);
     }
   });
@@ -70,7 +71,7 @@ router.get('/visimisi/:id', failLoginUser, (req, res) => {
 
 // VOTE PAGE
 router.get('/vote', failLoginUser, function (req, res, next) {
-  Kandidat.find((err, docs) => {
+  Kandidat.find({deleteStatus:false}, (err, docs) => {
     if (!err) {
       res.render("vote-page", { list: docs, status: req.session.user.status });
     }
