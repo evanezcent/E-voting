@@ -162,11 +162,13 @@ nav a{
 .form-check{
     margin-left: 1em;
 }
-
 .form-add-user form{
     margin-left: 2em;
 }
 
+.list-kelas{
+    margin-top: 10vh;
+}
 .form-add-kelas form{
     padding: 2vh 5vw;
 }

@@ -24,7 +24,7 @@ var upload = multer({
     })
 });
 
-/* GET users listing. */
+// ADMIN =================================================================================================
 router.get('/', function (req, res, next) {
     res.render('admin-login', { msg: "" })
 });
@@ -36,7 +36,7 @@ router.get('/logout', (req, res) => {
 router.post('/loginAdmin', (req, res, next) => {
     var uname = req.body.uname;
     var pass = req.body.pass;
-
+    console.log(uname)
     Admin.findOne({ username: uname })
         .then(admin => {
             if (admin && admin.password == pass) {
@@ -61,7 +61,7 @@ router.get('/edit', failLoginAdmin, (req, res) => {
     res.render('admin-edit', { msg: "", title: req.session.adminUser })
 });
 // EDIT ADMIN HANDLER
-router.post('/edit-admin', (req, res) => {
+router.post('/edit-admin', failLoginAdmin, (req, res) => {
     const { id, uname, fullname, pass } = req.body;
     Admin.findOne({ _id: id })
         .then(admin => {
@@ -104,15 +104,16 @@ router.post('/change', (req, res) => {
             }
         });
 });
-// KELAS
-router.get('/kelas', (req, res) => {
+
+// KELAS =================================================================================================
+router.get('/kelas', failLoginAdmin, (req, res) => {
     Kelas.find((err, docs) => {
         if (!err) {
             User.find((err, list) => {
                 res.render("admin-kelas", {
                     list: docs,
                     dataSiswa: list,
-                    title: "TAMA"
+                    title: req.session.adminUser
                 });
             });
         }
@@ -122,18 +123,17 @@ router.get('/kelas', (req, res) => {
         }
     });
 });
-router.get('/input-kelas', (req, res) => {
-    res.render('form-kelas', { msg: "", title: "Tama" });
+router.get('/input-kelas', failLoginAdmin, (req, res) => {
+    res.render('form-kelas', { msg: "", title: req.session.adminUser });
 });
-// TODO: BELOM DICOBA
-router.get('/delete-kelas/:id', failLoginAdmin, (req, res) => {
+router.get('/delete-kelas/:id', (req, res) => {
     Kelas.remove({ _id: req.params.id }, (err, result) => {
         if (!err) res.redirect('/admin/kelas');
         else res.send(404);
     });
 });
-// INPUT USER HANDLE
-router.post('/inputKelas', (req, res) => {
+// INPUT KELAS HANDLE
+router.post('/inputKelas', failLoginAdmin, (req, res) => {
 
     const kelas = req.body.kelas;
     console.log(kelas)
@@ -154,19 +154,8 @@ router.post('/inputKelas', (req, res) => {
             }
         });
 });
-// LOOK FOR KANDIDAT'S VISI MISI
-router.get('/detail/:id', failLoginAdmin, (req, res) => {
-    Kandidat.find({ _id: req.params.id }, (err, docs) => {
-        if (!err) {
-            res.render("detail-page", { list: docs, title: req.session.adminUser });
-        }
-        else {
-            res.send(404);
-            console.log('Error :' + err);
-        }
-    });
-});
 
+// USER ==========================================================================================================
 // PAGINATION
 router.get('/user/:page', failLoginAdmin, (req, res) => {
     let perPage = 10;
@@ -212,7 +201,6 @@ router.get('/input-user', failLoginAdmin, (req, res) => {
 router.post('/inputUser', (req, res) => {
 
     const nis = req.body.nis;
-
     // Cek For User Data
     User.findOne({ nis: nis })
         .then(pemilih => {
@@ -274,7 +262,7 @@ router.get('/edit-user/:id', failLoginAdmin, (req, res) => {
     });
 });
 // EDIT USER HANDLER
-router.post('/editUser/:id', (req, res) => {
+router.post('/editUser/:id', failLoginAdmin, (req, res) => {
 
     const { id, nama, nis, kelas, kelamin } = req.body;
     User.findOne({ _id: id })
@@ -290,11 +278,23 @@ router.post('/editUser/:id', (req, res) => {
         });
 });
 
-// KANDIDAT
+// KANDIDAT======================================================================================================
 router.get('/kandidat', failLoginAdmin, (req, res) => {
     Kandidat.find({ deleteStatus: false }, (err, docs) => {
         if (!err) {
             res.render("admin-kandidat", { list: docs, title: req.session.adminUser });
+        }
+        else {
+            res.send(404);
+            console.log('Error :' + err);
+        }
+    });
+});
+// LOOK FOR KANDIDAT'S VISI MISI
+router.get('/detail/:id', failLoginAdmin, (req, res) => {
+    Kandidat.find({ _id: req.params.id }, (err, docs) => {
+        if (!err) {
+            res.render("detail-page", { list: docs, title: req.session.adminUser });
         }
         else {
             res.send(404);
@@ -310,11 +310,15 @@ router.get('/input-kandidat', failLoginAdmin, (req, res) => {
 router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
 
     const { nama, visi, misi } = req.body;
-    var foto = req.file.path;
     var status = false, suara = 0;
-
+    // Check if there is no photo of the kandidat
+    console.log(req.file)
+    if (!req.file){
+        res.render('form-kandidat', { msg: "FOTO KANDIDAT TIDAK ADA !!!", title: req.session.adminUser });
+    }
+    var foto = req.file.path;
     // Check for Kandidat's Data
-    Kandidat.findOne({ deleteStatus: false, nama: nama })
+    Kandidat.findOne({ deleteStatus: false, nama: nam })
         .then(kandidat => {
             if (kandidat) {
                 res.render('form-kandidat', { msg: "KANDIDAT SUDAH ADA !!!", title: req.session.adminUser });
@@ -363,22 +367,18 @@ router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
     });
 });
 // EDIT KANDIDAT HANDLER
-router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
+router.post('/editKandidat', failLoginAdmin, upload.single('kandidatImg'), (req, res) => {
     // IF NOT CHANGE THE FOTO
     if (!req.file) {
         const { id, nama, visi, misi } = req.body;
-
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
             if (!err) res.redirect('/admin/kandidat');
             else res.send(404);
         });
-
     }
     else {
-        // console.log(req.file.path);
         const { id, nama, visi, misi } = req.body;
         const foto = req.file.path;
-
         // console.log("ADA FILE")
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
             if (!err) res.redirect('/admin/kandidat');
@@ -433,18 +433,9 @@ function getKandidat(postData) {
 router.get('/hasil-suara', failLoginAdmin, (req, res) => {
     Kandidat.find({ deleteStatus: false }).then(kandidat => {
         if (kandidat) {
-            // console.log(kandidat)
-            // console.log("==============")
-
             var postData = getPostData(kandidat, ['nama', 'suara']);
-            // console.log(postData);
-            // console.log("==============")
-
             var suara = getSuara(postData);
             var kand = getKandidat(postData);
-
-            // console.log('Kandidat : ', kand, "   Suara : ", suara);
-            // console.log("==============")
 
             res.render('hasil-suara', {
                 dataK: JSON.stringify(kand),
