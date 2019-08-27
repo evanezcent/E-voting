@@ -24,8 +24,12 @@
                     </div>
                     <div class="form-group">
                         <label for=""><b>Kelas : </b></label>
-                        <input type="text" class="form-control" name="kelas" placeholder="Kelas" required>
-                        <small class="form-text text-muted"><i>eg. XI IPA 1, XII IPS 2</i></small>
+                        <select class="custom-select" name="classSelect">
+                            <% for (var i=0; i< clas.length; i++){ %>
+                            <option value="<%= clas[i].kelas %>"> <%= clas[i].kelas %> </option>
+                            <% } %>
+                            <option value="no" selected required>Pilih Kelas</option>
+                        </select>
                     </div>
                     <fieldset>
                         <label><b>Jenis Kelamin</b></label>
@@ -69,4 +73,5 @@
         }
     });
 </script>
+
 </html>

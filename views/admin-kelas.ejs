@@ -1,0 +1,67 @@
+<% include template/header-admin %>
+
+<div class="right-bar">
+    <div class="dashboard">
+        <div class="box box-user">
+            <div class="header">
+                <h3 class="d-inline">Daftar Kelas</h3>
+                <a href="/admin/input-kelas" class="d-inline btn btn-md btn-success float-right">Tambah Kelas</a>
+            </div>
+            <div class="list-kelas">
+                <table class="table table-striped">
+                    <thead class="thead-primary">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Jumlah Siswa</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% var nomor = 1 %>
+                        <% for (var i=0; i< list.length; i++){ %>
+                        <tr>
+                            <th scope="row"><%= nomor++ %></th>
+                            <td><%= list[i].kelas %></td>
+                            <% var jml = 0, idx = 0; %>
+                            <% while (idx < dataSiswa.length){ %>
+                            <% if(list[i].kelas == dataSiswa[idx].kelas) jml++; %>
+                            <% idx++; %>
+                            <% } %>
+                            <td><%= jml %></td>
+                            <td>
+                                <div class="btn-opsi">
+                                    <a href="/admin/delete-kelas/<%= list[i]._id %>" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }; %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer" class="text-center fixed-bottom">
+    <P>Copyright 2019</P>
+</div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        if ($(window).width() < 600) {
+            $('nav').removeClass('fixed-top');
+            $('#card-btn1').removeClass('d-flex');
+            $('#footer').removeClass('fixed-bottom');
+
+        }
+    });
+</script>
+
+</html>

@@ -4,6 +4,8 @@ var multer = require('multer');
 var User = require('../models/User');
 var Kandidat = require('../models/Kandidat');
 var Admin = require('../models/Admin')
+var Kelas = require('../models/Kelas')
+
 
 const failLoginAdmin = (req, res, next) => {
     if (!req.session.adminUser) {
@@ -102,6 +104,56 @@ router.post('/change', (req, res) => {
             }
         });
 });
+// KELAS
+router.get('/kelas', (req, res) => {
+    Kelas.find((err, docs) => {
+        if (!err) {
+            User.find((err, list) => {
+                res.render("admin-kelas", {
+                    list: docs,
+                    dataSiswa: list,
+                    title: "TAMA"
+                });
+            });
+        }
+        else {
+            res.statusCode = 404;
+            console.log('Error :' + err);
+        }
+    });
+});
+router.get('/input-kelas', (req, res) => {
+    res.render('form-kelas', { msg: "", title: "Tama" });
+});
+// TODO: BELOM DICOBA
+router.get('/delete-kelas/:id', failLoginAdmin, (req, res) => {
+    Kelas.remove({ _id: req.params.id }, (err, result) => {
+        if (!err) res.redirect('/admin/kelas');
+        else res.send(404);
+    });
+});
+// INPUT USER HANDLE
+router.post('/inputKelas', (req, res) => {
+
+    const kelas = req.body.kelas;
+    console.log(kelas)
+    // Cek For User Data
+    Kelas.findOne({ kelas: kelas })
+        .then(kelas => {
+            if (kelas) {
+                res.render("form-kelas", { msg: "KELAS SUDAH ADA", title: "TAMA" });
+            }
+            else {
+                kelas = req.body.kelas;
+                const kelasBaru = new Kelas({
+                    kelas: kelas
+                });
+                kelasBaru.save()
+                res.redirect('/admin/kelas');
+                console.log(kelasBaru);
+            }
+        });
+});
 // LOOK FOR KANDIDAT'S VISI MISI
 router.get('/detail/:id', failLoginAdmin, (req, res) => {
     Kandidat.find({ _id: req.params.id }, (err, docs) => {
@@ -121,7 +173,7 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
     let page = req.params.page || 1;
 
     User
-        .find({ deleteStatus:false }) // finding all documents
+        .find({ deleteStatus: false }) // finding all documents
         .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
         .limit(perPage) // output just 10 items
         .exec((err, docs) => {
@@ -140,39 +192,64 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
 
 // FORM INPUT
 router.get('/input-user', failLoginAdmin, (req, res) => {
-    res.render('form-user', { msg: "", scs: "", title: req.session.adminUser });
+    Kelas.find((err, list) => {
+        if (!err) {
+            console.log(list)
+            res.render('form-user', {
+                msg: "",
+                clas: list,
+                title: req.session.adminUser
+
+            });
+        } else {
+            res.send(404);
+        }
+    });
+
 });
 
 // INPUT USER HANDLE
 router.post('/inputUser', (req, res) => {
 
-    const { nama, nis, kelas, kelamin } = req.body;
+    const nis = req.body.nis;
 
     // Cek For User Data
     User.findOne({ nis: nis })
         .then(pemilih => {
             if (pemilih) {
-                res.render("form-user", { msg: "NIS SUDAH ADA", title: req.session.adminUser });
+                // req.flash('msg', "NIS SUDAH ADA !")
+                res.redirect('/admin/input-user')
             }
             else {
-                const pemilihBaru = new User({
-                    nis: nis,
-                    nama: nama,
-                    kelas: kelas,
-                    kelamin: kelamin,
-                    deleteStatus: false,
-                    status: false
-                });
+                const kelas = req.body.classSelect;
+                console.log(kelas)
+                if (kelas == "no") {
+                    // req.flash('msg', 'KELAS KOSONG !')
+                    res.redirect('/admin/input-user')
+                }
+                else {
+                    console.log(kelas)
+                    const { nama, kelamin } = req.body;
+                    const niss = req.body.nis;
+                    const pemilihBaru = new User({
+                        nis: niss,
+                        nama: nama,
+                        kelas: kelas,
+                        kelamin: kelamin,
+                        deleteStatus: false,
+                        status: false
+                    });
 
-                pemilihBaru.save().then(result => {
-                    console.log(result);
-                }).catch(err => {
-                    res.send(404);
-                    console.log(err);
-                });
+                    pemilihBaru.save().then(result => {
+                        console.log(result);
+                    }).catch(err => {
+                        res.send(404);
+                        console.log(err);
+                    });
 
-                res.redirect('/admin/user/:1');
-                console.log(pemilihBaru);
+                    res.redirect('/admin/user/:1');
+                    console.log(pemilihBaru);
+                }
             }
         });
 });
@@ -215,7 +292,7 @@ router.post('/editUser/:id', (req, res) => {
 
 // KANDIDAT
 router.get('/kandidat', failLoginAdmin, (req, res) => {
-    Kandidat.find({ deleteStatus:false }, (err, docs) => {
+    Kandidat.find({ deleteStatus: false }, (err, docs) => {
         if (!err) {
             res.render("admin-kandidat", { list: docs, title: req.session.adminUser });
         }
@@ -292,7 +369,7 @@ router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
         const { id, nama, visi, misi } = req.body;
 
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
-            if(!err) res.redirect('/admin/kandidat');
+            if (!err) res.redirect('/admin/kandidat');
             else res.send(404);
         });
 
@@ -304,7 +381,7 @@ router.post('/editKandidat', upload.single('kandidatImg'), (req, res) => {
 
         // console.log("ADA FILE")
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
-            if(!err) res.redirect('/admin/kandidat');
+            if (!err) res.redirect('/admin/kandidat');
             else res.send(404);
         });
     }
@@ -369,7 +446,7 @@ router.get('/hasil-suara', failLoginAdmin, (req, res) => {
             // console.log('Kandidat : ', kand, "   Suara : ", suara);
             // console.log("==============")
 
-            res.render('hasil-suara', { 
+            res.render('hasil-suara', {
                 dataK: JSON.stringify(kand),
                 dataS: JSON.stringify(suara),
                 title: req.session.adminUser

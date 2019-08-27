@@ -167,13 +167,12 @@ nav a{
     margin-left: 2em;
 }
 
-.right-bar{
-    margin-top: 3.5em;
+.form-add-kelas form{
+    padding: 2vh 5vw;
 }
 
-#chart-suara{
-    /* width: 60vw !important;
-    height: 70vh !important; */
+.right-bar{
+    margin-top: 3.5em;
 }
 
 @media (max-width: 600px){
