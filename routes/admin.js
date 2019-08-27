@@ -318,7 +318,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
     }
     var foto = req.file.path;
     // Check for Kandidat's Data
-    Kandidat.findOne({ deleteStatus: false, nama: nam })
+    Kandidat.findOne({ deleteStatus: false, nama: nama })
         .then(kandidat => {
             if (kandidat) {
                 res.render('form-kandidat', { msg: "KANDIDAT SUDAH ADA !!!", title: req.session.adminUser });
