@@ -2,7 +2,7 @@
 
 <div class="right-bar">
     <div class="dashboard">
-        <div class="box box-user">
+        <div class="box box-kelas">
             <div class="header">
                 <h3 class="d-inline">Daftar Kelas</h3>
                 <a href="/admin/input-kelas" class="d-inline btn btn-md btn-success float-right">Tambah Kelas</a>
@@ -43,7 +43,7 @@
     </div>
 </div>
 
-<div id="footer" class="text-center fixed-bottom">
+<div id="footer" class="text-center">
     <P>Copyright 2019</P>
 </div>
 
@@ -57,9 +57,6 @@
     $(document).ready(function () {
         if ($(window).width() < 600) {
             $('nav').removeClass('fixed-top');
-            $('#card-btn1').removeClass('d-flex');
-            $('#footer').removeClass('fixed-bottom');
-
         }
     });
 </script>
