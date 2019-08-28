@@ -1,3 +1,4 @@
+
 body{
     background-color: white;
     color: #3489eb;
@@ -99,9 +100,7 @@ nav a{
 .list-group>#a:hover{
     border-left: 5px solid #fc0352
 }
-.active{
-    border-left: 5px solid #fc0352
-}
+
 .collapse a{
     color: white;
     text-decoration: none;

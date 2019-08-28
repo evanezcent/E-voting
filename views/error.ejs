@@ -5,42 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ERROR</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style-admin.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/hover.css">
+
 </head>
 
 <body class="container-fluid">
-    <div class="title">
-        <h2 class="text-center"><b>Admin</b> EVOTTE</h2>
-    </div>
 
-    <% if (msg != "") { %>
-    <div id="alert-login" class="alert alert-danger text-center"role="alert">
-        <b><%= msg %></b>
-    </div>
-    <% }%>
-    <div class="box-login">
-        <h4 class="text-center">Silahkan LOGIN</h4>
-        <form action="/admin/loginAdmin" method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" name="uname" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="pass" placeholder="Password" required>
-            </div>
-            <div class=" text-center">
-                <button type="submit" class="btn btn-md hvr-float-shadow"><b>Login</b></button>
-            </div>
-        </form>
-    </div>
-
-
-    <div id="footer" class="text-center fixed-bottom">
-        <P>Copyright 2019</P>
-    </div>
-
+        <div class="err">
+            <h1>404</h1>
+            <h3>SORRY :(</h3>
+            <p>Your sites is not found !</p>
+        </div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

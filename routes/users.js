@@ -16,7 +16,9 @@ const failLoginUser = (req, res, next) => {
 router.get('/', function (req, res, next) {
   res.render('homepage', { msg: '' })
 });
-
+router.get('/error', function (req, res, next) {
+  res.render('error');
+});
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -26,7 +28,7 @@ router.get('/logout', (req, res) => {
 router.post('/loginUser', (req, res) => {
   const nis = req.body.nis;
 
-  User.findOne({ nis: nis, deleteStatus:false })
+  User.findOne({ nis: nis, deleteStatus: false })
     .then(pemilih => {
       if (pemilih) {
         req.session.user = pemilih;
@@ -46,13 +48,13 @@ router.get('/dashboard', failLoginUser, (req, res) => {
 
 // LIST KANDIDAT
 router.get('/list', failLoginUser, function (req, res, next) {
-  Kandidat.find({ deleteStatus:false }, (err, docs) => {
+  Kandidat.find({ deleteStatus: false }, (err, docs) => {
     if (!err) {
       res.render("list-kandidat", { list: docs });
     }
     else {
-      res.send(404);
-      console.log('Error :' + err);
+      res.redirect('/error');
+      console.log(err);
     }
   });
 });
@@ -64,19 +66,21 @@ router.get('/visimisi/:id', failLoginUser, (req, res) => {
       res.render("visimisi-page", { list: docs });
     }
     else {
-      res.send(404);
+      res.redirect('/error');
+      console.log(err);
     }
   });
 });
 
 // VOTE PAGE
 router.get('/vote', failLoginUser, function (req, res, next) {
-  Kandidat.find({deleteStatus:false}, (err, docs) => {
+  Kandidat.find({ deleteStatus: false }, (err, docs) => {
     if (!err) {
       res.render("vote-page", { list: docs, status: req.session.user.status });
     }
     else {
-      console.log('Error :' + err);
+      res.redirect('/error');
+      console.log(err);
     }
   });
 });
@@ -89,17 +93,26 @@ router.get('/pilih/:id', failLoginUser, (req, res) => {
         console.log(kandidat)
         var vote = kandidat.suara + 1;
         Kandidat.updateOne({ _id: kandidat._id }, { $set: { suara: vote } }, (err, result) => {
-          console.log('SUCCESS MEMILIH')
+          if (err) {
+            res.redirect('/error');
+            console.log(err);
+          }
         });
 
         User.updateOne({ nis: req.session.user.nis }, { $set: { status: true } }, (err, result) => {
-          req.session.user.status = true;
-          // console.log(req.session.user.status);
-          res.redirect('/users/vote');
+          if (err) {
+            res.redirect('/error');
+            console.log(err);
+          } else {
+            req.session.user.status = true;
+            res.redirect('/users/vote');
+          }
+
         });
       }
       else {
-        console.log('Error :' + err);
+        res.redirect('/error');
+        console.log(err);
       }
     });
 

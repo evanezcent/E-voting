@@ -65,7 +65,6 @@ router.post('/edit-admin', failLoginAdmin, (req, res) => {
     const { id, uname, fullname, pass } = req.body;
     Admin.findOne({ _id: id })
         .then(admin => {
-            // console.log(admin)
             if (admin && pass == admin.password) {
                 Admin.updateOne({ _id: req.body.id }, { $set: { username: uname, fullname: fullname } }, (err, result) => {
                     req.session.adminUser.fullname = fullname;
@@ -110,16 +109,21 @@ router.get('/kelas', failLoginAdmin, (req, res) => {
     Kelas.find((err, docs) => {
         if (!err) {
             User.find((err, list) => {
-                res.render("admin-kelas", {
-                    list: docs,
-                    dataSiswa: list,
-                    title: req.session.adminUser
-                });
+                if (!err) {
+                    res.render("admin-kelas", {
+                        list: docs,
+                        dataSiswa: list,
+                        title: req.session.adminUser
+                    });
+                }
+                else {
+                    res.redirect('/error');
+                }
             });
         }
         else {
-            res.statusCode = 404;
-            console.log('Error :' + err);
+            res.redirect('/error');
+            console.log(err);
         }
     });
 });
@@ -129,7 +133,10 @@ router.get('/input-kelas', failLoginAdmin, (req, res) => {
 router.get('/delete-kelas/:id', (req, res) => {
     Kelas.remove({ _id: req.params.id }, (err, result) => {
         if (!err) res.redirect('/admin/kelas');
-        else res.send(404);
+        else{
+            res.redirect('/error');
+            console.log(err);
+        }
     });
 });
 // INPUT KELAS HANDLE
@@ -137,7 +144,6 @@ router.post('/inputKelas', failLoginAdmin, (req, res) => {
 
     const kelas = req.body.kelas;
     console.log(kelas)
-    // Cek For User Data
     Kelas.findOne({ kelas: kelas })
         .then(kelas => {
             if (kelas) {
@@ -167,15 +173,25 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
         .limit(perPage) // output just 10 items
         .exec((err, docs) => {
             console.log(docs)
-            User.count((err, count) => { // count to calculate the number of pages
-                if (err) return next(err);
-                res.render('admin-user', {
-                    title: req.session.adminUser,
-                    current: page,
-                    pages: Math.ceil(count / perPage),
-                    list: docs,
+            if (!err) {
+                User.count((err, count) => { // count to calculate the number of pages
+                    if (err) {
+                        res.redirect('/error');
+                        console.log(err);
+                    }
+                    res.render('admin-user', {
+                        title: req.session.adminUser,
+                        current: page,
+                        pages: Math.ceil(count / perPage),
+                        list: docs,
+                    });
                 });
-            });
+            }
+            else {
+                res.redirect('/error');
+                console.log(err);
+            }
+
         });
 });
 
@@ -191,7 +207,8 @@ router.get('/input-user', failLoginAdmin, (req, res) => {
 
             });
         } else {
-            res.send(404);
+            res.redirect('/error');
+            console.log(err);
         }
     });
 
@@ -205,7 +222,6 @@ router.post('/inputUser', (req, res) => {
     User.findOne({ nis: nis })
         .then(pemilih => {
             if (pemilih) {
-                // req.flash('msg', "NIS SUDAH ADA !")
                 res.redirect('/admin/input-user')
             }
             else {
@@ -231,7 +247,7 @@ router.post('/inputUser', (req, res) => {
                     pemilihBaru.save().then(result => {
                         console.log(result);
                     }).catch(err => {
-                        res.send(404);
+                        res.redirect('/error');
                         console.log(err);
                     });
 
@@ -245,7 +261,10 @@ router.post('/inputUser', (req, res) => {
 router.get('/delete-user/:id', failLoginAdmin, (req, res) => {
     User.updateOne({ _id: req.params.id }, { $set: { nis: 0, deleteStatus: true } }, (err, result) => {
         if (!err) res.redirect('/admin/user/:1');
-        else res.send(404);
+        else {
+            res.redirect('/error');
+            console.log(err);
+        }
     });
 });
 // EDIT USER
@@ -256,8 +275,8 @@ router.get('/edit-user/:id', failLoginAdmin, (req, res) => {
             res.render("edit-user", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.send(404);
-            console.log('Error :' + err);
+            res.redirect('/error');
+            console.log(err);
         }
     });
 });
@@ -285,8 +304,8 @@ router.get('/kandidat', failLoginAdmin, (req, res) => {
             res.render("admin-kandidat", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.send(404);
-            console.log('Error :' + err);
+            res.redirect('/error');
+            console.log(err);
         }
     });
 });
@@ -297,8 +316,8 @@ router.get('/detail/:id', failLoginAdmin, (req, res) => {
             res.render("detail-page", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.send(404);
-            console.log('Error :' + err);
+            res.redirect('/error');
+            console.log(err);
         }
     });
 });
@@ -313,7 +332,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
     var status = false, suara = 0;
     // Check if there is no photo of the kandidat
     console.log(req.file)
-    if (!req.file){
+    if (!req.file) {
         res.render('form-kandidat', { msg: "FOTO KANDIDAT TIDAK ADA !!!", title: req.session.adminUser });
     }
     var foto = req.file.path;
@@ -336,10 +355,9 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
                 newKandidat.save().then(result => {
                     console.log(result);
                 }).catch(err => {
-                    res.send(404);
+                    res.redirect('/error');
                     console.log(err);
                 });
-
                 res.redirect('/admin/kandidat');
             }
         });
@@ -349,7 +367,10 @@ router.get('/delete-kandidat/:id', failLoginAdmin, (req, res) => {
 
     Kandidat.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
         if (!err) res.redirect('/admin/kandidat');
-        else res.send(404);
+        else {
+            res.redirect('/error');
+            console.log(err);
+        }
     });
 });
 
@@ -361,8 +382,8 @@ router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
             res.render("edit-kandidat", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.send(404);
-            console.log('Error :' + err);
+            res.redirect('/error');
+            console.log(err);
         }
     });
 });
@@ -373,16 +394,21 @@ router.post('/editKandidat', failLoginAdmin, upload.single('kandidatImg'), (req,
         const { id, nama, visi, misi } = req.body;
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
             if (!err) res.redirect('/admin/kandidat');
-            else res.send(404);
+            else {
+                res.redirect('/error');
+                console.log(err);
+            }
         });
     }
     else {
         const { id, nama, visi, misi } = req.body;
         const foto = req.file.path;
-        // console.log("ADA FILE")
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
             if (!err) res.redirect('/admin/kandidat');
-            else res.send(404);
+            else {
+                res.redirect('/error');
+                console.log(err);
+            }
         });
     }
 
