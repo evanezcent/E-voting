@@ -1,51 +1,50 @@
 <% include template/header-vote %>
 
-    <div class="title text-center">
-        <h2>DAFTAR KANDIDAT</h2>
-    </div>
-
-    <div class="jumbotron">
-        <% for (var i=0; i< list.length; i++){ %>
-        <div class="list-kandidat justify-content-center">
-            <div class="card animated fadeInDownBig" style="width: 20rem;">
-                <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center"><%= list[i].nama %></h5>
-                </div>
-                <div class="button-card card-footer d-flex">
-                    <% if(status == false) {%>
-                    <a href="/users/pilih/<%= list[i]._id %>" class="btn btn-success">Pilih</a>
-                    <% } %>
-                    <a href="/users/visimisi/<%= list[i]._id %>" class="btn btn-warning">Detail</a>
-                </div>
+<div class="title text-center">
+    <h2>DAFTAR KANDIDAT</h2>
+</div>
+<div class="jumbotron">
+    <% for (var i=0; i< list.length; i++){ %>
+    <div class="list-kandidat justify-content-center">
+        <div class="card animated fadeInDownBig" style="width: 20rem;">
+            <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center"><%= list[i].nama %></h5>
             </div>
-            <% i = i+1; %>
-            <% if (i != list.length ){ %>
-            <div class="card animated fadeInDownBig" style="width: 20rem;">
-                <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center"><%= list[i].nama %></h5>
-                </div>
-                <div class="button-card card-footer d-flex">
-                    <% if(status == false) {%>
-                    <a href="/users/pilih/<%= list[i]._id %>" class="btn btn-success">Pilih</a>
-                    <% } %>
-                    <a href="/users/visimisi/<%= list[i]._id %>" class="btn btn-warning">Detail</a>
-                </div>
+            <div class="button-card card-footer d-flex">
+                <% if(status == false) {%>
+                <a href="/users/pilih/<%= list[i]._id %>" class="btn btn-success">Pilih</a>
+                <% } %>
+                <a href="/users/visimisi/<%= list[i]._id %>" class="btn btn-warning">Detail</a>
             </div>
-            <% } %>
         </div>
-        <% }; %>
-        <div id="home" class="text-center mt-3">
-            <a href="/users/dashboard" class="btn btn-dark" style="width: 30vw">Home</a>
+        <% i = i+1; %>
+        <% if (i != list.length ){ %>
+        <div class="card animated fadeInDownBig" style="width: 20rem;">
+            <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center"><%= list[i].nama %></h5>
+            </div>
+            <div class="button-card card-footer d-flex">
+                <% if(status == false) {%>
+                <a href="/users/pilih/<%= list[i]._id %>" class="btn btn-success">Pilih</a>
+                <% } %>
+                <a href="/users/visimisi/<%= list[i]._id %>" class="btn btn-warning">Detail</a>
+            </div>
         </div>
+        <% } %>
     </div>
-
-
-
-    <div id="footer" class="text-center">
-        <P>Copyright 2019</P>
+    <% }; %>
+    <div id="home" class="text-center mt-3">
+        <a href="/users/dashboard" class="btn btn-dark" style="width: 30vw">Home</a>
     </div>
+</div>
+
+
+
+<div id="footer" class="text-center">
+    <P>Copyright 2019</P>
+</div>
 
 
 </body>

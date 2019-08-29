@@ -18,7 +18,6 @@ const failLoginAdmin = (req, res, next) => {
 // IMAGE UPLOADER 
 var upload = multer({
     storage: multer.diskStorage({
-
         destination: function (req, file, callback) { callback(null, './uploads'); },
         filename: function (req, file, callback) { callback(null, file.originalname); }
     })
@@ -36,12 +35,12 @@ router.get('/logout', (req, res) => {
 router.post('/loginAdmin', (req, res, next) => {
     var uname = req.body.uname;
     var pass = req.body.pass;
-    console.log(uname)
+    // console.log(uname)
     Admin.findOne({ username: uname })
         .then(admin => {
             if (admin && admin.password == pass) {
                 req.session.adminUser = admin;
-                console.log(req.session.adminUser);
+                // console.log(req.session.adminUser);
                 res.redirect('/admin/dashboard');
             }
             else {
@@ -86,7 +85,7 @@ router.post('/change', (req, res) => {
     const { id, pass, repass } = req.body;
     Admin.findOne({ _id: id })
         .then(admin => {
-            console.log(admin)
+            // console.log(admin)
             if (admin && pass == repass) {
                 if (pass.length < 6) {
                     res.render("change-password", { msg: "PASSWORD IS TOO SHORT !", title: req.session.adminUser });
@@ -143,7 +142,7 @@ router.get('/delete-kelas/:id', (req, res) => {
 router.post('/inputKelas', failLoginAdmin, (req, res) => {
 
     const kelas = req.body.kelas;
-    console.log(kelas)
+    // console.log(kelas)
     Kelas.findOne({ kelas: kelas })
         .then(kelas => {
             if (kelas) {
@@ -156,7 +155,7 @@ router.post('/inputKelas', failLoginAdmin, (req, res) => {
                 });
                 kelasBaru.save()
                 res.redirect('/admin/kelas');
-                console.log(kelasBaru);
+                // console.log(kelasBaru);
             }
         });
 });
@@ -172,7 +171,7 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
         .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
         .limit(perPage) // output just 10 items
         .exec((err, docs) => {
-            console.log(docs)
+            // console.log(docs)
             if (!err) {
                 User.count((err, count) => { // count to calculate the number of pages
                     if (err) {
@@ -199,7 +198,7 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
 router.get('/input-user', failLoginAdmin, (req, res) => {
     Kelas.find((err, list) => {
         if (!err) {
-            console.log(list)
+            // console.log(list)
             res.render('form-user', {
                 msg: "",
                 clas: list,
@@ -226,7 +225,7 @@ router.post('/inputUser', (req, res) => {
             }
             else {
                 const kelas = req.body.classSelect;
-                console.log(kelas)
+                // console.log(kelas)
                 if (kelas == "no") {
                     // req.flash('msg', 'KELAS KOSONG !')
                     res.redirect('/admin/input-user')
@@ -252,7 +251,7 @@ router.post('/inputUser', (req, res) => {
                     });
 
                     res.redirect('/admin/user/:1');
-                    console.log(pemilihBaru);
+                    // console.log(pemilihBaru);
                 }
             }
         });
@@ -331,7 +330,6 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
     const { nama, visi, misi } = req.body;
     var status = false, suara = 0;
     // Check if there is no photo of the kandidat
-    console.log(req.file)
     if (!req.file) {
         res.render('form-kandidat', { msg: "FOTO KANDIDAT TIDAK ADA !!!", title: req.session.adminUser });
     }
@@ -445,7 +443,6 @@ function getKandidat(postData) {
     var i = 0;
     postData.forEach(function (content, callback) {
         for (var key in content) {
-            // console.log('key: ' + key, ', value: ' + content[key]);
             if (key == 'nama') {
                 data[i] = content[key];
             }

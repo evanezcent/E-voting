@@ -32,7 +32,7 @@ router.post('/loginUser', (req, res) => {
     .then(pemilih => {
       if (pemilih) {
         req.session.user = pemilih;
-        console.log(req.session.user);
+        // console.log(req.session.user);
         res.redirect('/users/dashboard');
       }
       else {
@@ -90,24 +90,24 @@ router.get('/pilih/:id', failLoginUser, (req, res) => {
   Kandidat.findOne({ _id: req.params.id })
     .then(kandidat => {
       if (kandidat) {
-        console.log(kandidat)
+        // console.log(kandidat)
         var vote = kandidat.suara + 1;
-        Kandidat.updateOne({ _id: kandidat._id }, { $set: { suara: vote } }, (err, result) => {
+        Kandidat.updateOne({ _id: kandidat._id }, { $set: { suara: vote } }, (err, data) => {
           if (err) {
             res.redirect('/error');
             console.log(err);
           }
-        });
 
-        User.updateOne({ nis: req.session.user.nis }, { $set: { status: true } }, (err, result) => {
-          if (err) {
-            res.redirect('/error');
-            console.log(err);
-          } else {
-            req.session.user.status = true;
-            res.redirect('/users/vote');
-          }
-
+          User.updateOne({ nis: req.session.user.nis }, { $set: { status: true } }, (err, result) => {
+            if (err) {
+              res.redirect('/error');
+              console.log(err);
+            } else {
+              req.session.user.status = true;
+              console.log(data)
+              res.redirect('/users/vote')
+            }
+          });
         });
       }
       else {
