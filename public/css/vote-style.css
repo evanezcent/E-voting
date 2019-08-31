@@ -13,10 +13,7 @@
 .title h2{
     font-weight: bold;
 }
-.list-kandidat{
-    display: flex;
-}
-.list-kandidat .card{
+.row .card{
     margin: 1em 2em;
     color: #3489eb;
     box-shadow: 0 10px 10px;
@@ -55,10 +52,6 @@
     .jumbotron a{
         display: block;
         position: relative;
-    }
-    .list-kandidat{
-        display: block;
-        margin: 2vh auto;
     }
     .button-card{
         display: block!important;
