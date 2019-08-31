@@ -116,12 +116,12 @@ router.get('/kelas', failLoginAdmin, (req, res) => {
                     });
                 }
                 else {
-                    res.redirect('/error');
+                    res.send(404);
                 }
             });
         }
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -133,7 +133,7 @@ router.get('/delete-kelas/:id', (req, res) => {
     Kelas.remove({ _id: req.params.id }, (err, result) => {
         if (!err) res.redirect('/admin/kelas');
         else{
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -175,7 +175,7 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
             if (!err) {
                 User.count((err, count) => { // count to calculate the number of pages
                     if (err) {
-                        res.redirect('/error');
+                        res.send(404);
                         console.log(err);
                     }
                     res.render('admin-user', {
@@ -187,7 +187,7 @@ router.get('/user/:page', failLoginAdmin, (req, res) => {
                 });
             }
             else {
-                res.redirect('/error');
+                res.send(404);
                 console.log(err);
             }
 
@@ -206,7 +206,7 @@ router.get('/input-user', failLoginAdmin, (req, res) => {
 
             });
         } else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -246,7 +246,7 @@ router.post('/inputUser', (req, res) => {
                     pemilihBaru.save().then(result => {
                         console.log(result);
                     }).catch(err => {
-                        res.redirect('/error');
+                        res.send(404);
                         console.log(err);
                     });
 
@@ -261,7 +261,7 @@ router.get('/delete-user/:id', failLoginAdmin, (req, res) => {
     User.updateOne({ _id: req.params.id }, { $set: { nis: 0, deleteStatus: true } }, (err, result) => {
         if (!err) res.redirect('/admin/user/:1');
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -274,7 +274,7 @@ router.get('/edit-user/:id', failLoginAdmin, (req, res) => {
             res.render("edit-user", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -303,7 +303,7 @@ router.get('/kandidat', failLoginAdmin, (req, res) => {
             res.render("admin-kandidat", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -315,7 +315,7 @@ router.get('/detail/:id', failLoginAdmin, (req, res) => {
             res.render("detail-page", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -353,7 +353,7 @@ router.post('/inputKandidat', upload.single('kandidatImg'), (req, res) => {
                 newKandidat.save().then(result => {
                     console.log(result);
                 }).catch(err => {
-                    res.redirect('/error');
+                    res.send(404);
                     console.log(err);
                 });
                 res.redirect('/admin/kandidat');
@@ -366,7 +366,7 @@ router.get('/delete-kandidat/:id', failLoginAdmin, (req, res) => {
     Kandidat.updateOne({ _id: req.params.id }, { $set: { deleteStatus: true } }, (err, result) => {
         if (!err) res.redirect('/admin/kandidat');
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -380,7 +380,7 @@ router.get('/edit-kandidat/:id', failLoginAdmin, (req, res) => {
             res.render("edit-kandidat", { list: docs, title: req.session.adminUser });
         }
         else {
-            res.redirect('/error');
+            res.send(404);
             console.log(err);
         }
     });
@@ -393,7 +393,7 @@ router.post('/editKandidat', failLoginAdmin, upload.single('kandidatImg'), (req,
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi } }, (err, result) => {
             if (!err) res.redirect('/admin/kandidat');
             else {
-                res.redirect('/error');
+                res.send(404);
                 console.log(err);
             }
         });
@@ -404,7 +404,7 @@ router.post('/editKandidat', failLoginAdmin, upload.single('kandidatImg'), (req,
         Kandidat.updateOne({ _id: id }, { $set: { nama: nama, visi: visi, misi: misi, kandidatImg: foto } }, (err, result) => {
             if (!err) res.redirect('/admin/kandidat');
             else {
-                res.redirect('/error');
+                res.send(404);
                 console.log(err);
             }
         });
