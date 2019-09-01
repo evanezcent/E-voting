@@ -221,6 +221,9 @@ nav a{
     .list-kandidat{
         display: block;
     }
+    .list-kandidat .card{
+        margin: 0 15vw;
+    }
     #card-btn1 a{
         margin: 2px auto;
     }
@@ -229,5 +232,11 @@ nav a{
     }
     table{
         margin-left: -30px
+    }
+    .table-user{
+        margin-left: 20px
+    }
+    .list-kelas table{
+        margin-left: 1vw;
     }
 }

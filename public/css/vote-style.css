@@ -60,6 +60,10 @@
     .button-card h3{
         font-size: 10px;
     }
+    .row{
+        height: auto;
+        margin: 0 3vw;
+    }
     .button-card a{
         margin: 1vh auto;
     }

@@ -3,9 +3,9 @@ var router = express.Router();
 var multer = require('multer');
 var User = require('../models/User');
 var Kandidat = require('../models/Kandidat');
-var Admin = require('../models/Admin')
-var Kelas = require('../models/Kelas')
-
+var Admin = require('../models/Admin');
+var Kelas = require('../models/Kelas');
+var bcrypt = require('bcryptjs');
 
 const failLoginAdmin = (req, res, next) => {
     if (!req.session.adminUser) {
@@ -89,6 +89,9 @@ router.post('/change', (req, res) => {
             if (admin && pass == repass) {
                 if (pass.length < 6) {
                     res.render("change-password", { msg: "PASSWORD IS TOO SHORT !", title: req.session.adminUser });
+                }
+                else if (pass != repass){
+                    res.render("change-password", { msg: "PASSWORD DO NOT MATCH !", title: req.session.adminUser });
                 }
                 else {
                     Admin.updateOne({ _id: req.body.id }, { $set: { password: pass } }, (err, result) => {

@@ -35,7 +35,8 @@ body{
     float: left;
 }
 .gambar img{
-    width: 25vw;
+    width: 300px;
+    margin-left: 5vw;
 }
 .kanan{
     float: right;
@@ -121,10 +122,21 @@ body{
         margin-top: 20vh;
     }
 }
-@media (max-width: 900px){
+@media (max-width: 800px){
+    .icon h3{
+        margin-top: 7vh;
+    }
+    .vote-kandidat h3{
+        margin-left: 3vh;
+    }
+}
+@media (max-width: 700px){
     body{
         width: 100vw;
         text-align: center;
+    }
+    .title{
+        padding: 2vh;
     }
     .err h1{
         margin-top: 100px;
@@ -134,6 +146,9 @@ body{
         margin: 10vh auto;
         margin-left: 7vw;
     } */
+    .opsi .icon{
+        width: 50vw!important;
+    }
     #profil{
         width: 90vw;
         padding: 4vh 5vw;
@@ -181,7 +196,10 @@ body{
     }
     .icon h3{
         margin-top: 6vh;
-        font-size: 10px;
+        font-size: 30px;
+    }
+    .visi-misi h3{
+        margin-top: 9vh
     }
     #footer{
         margin-top: auto;
