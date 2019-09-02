@@ -5,7 +5,6 @@ var User = require('../models/User');
 var Kandidat = require('../models/Kandidat');
 var Admin = require('../models/Admin');
 var Kelas = require('../models/Kelas');
-var bcrypt = require('bcryptjs');
 
 const failLoginAdmin = (req, res, next) => {
     if (!req.session.adminUser) {
