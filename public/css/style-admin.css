@@ -194,6 +194,7 @@ nav a{
         position: relative;
         height: 30vh;
         width: 100vw;
+        z-index: 5;
         /* margin-top: 7vh; */
     }
     .right-bar {
