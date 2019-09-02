@@ -8,8 +8,8 @@
                 <a href="/admin/input-kandidat" class="d-inline btn btn-md btn-success float-right">Tambah Kandidat</a>
             </div>
             <% for (var i=0; i< list.length; i++){ %>
-            <div class="list-kandidat">
-                <div class="card" style="width: 15rem;">
+            <div class="row">
+                <div class="card col-lg-5" style="width: 17rem;">
                     <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center"><b><%= list[i].nama %></b></h5>
@@ -22,7 +22,7 @@
                 </div>
                 <% i = i+1 %>
                 <% if (i != list.length ){ %>
-                <div class="card" style="width: 15rem;">
+                <div class="card col-lg-5" style="width: 17rem;">
                     <img src="../<%= list[i].kandidatImg %>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center"><b><%= list[i].nama %></b></h5>

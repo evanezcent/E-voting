@@ -206,7 +206,6 @@ router.get('/input-user', failLoginAdmin, (req, res) => {
                 msg: "",
                 clas: list,
                 title: req.session.adminUser
-
             });
         } else {
             res.send(404);
@@ -224,7 +223,19 @@ router.post('/inputUser', (req, res) => {
     User.findOne({ nis: nis })
         .then(pemilih => {
             if (pemilih) {
-                res.redirect('/admin/input-user')
+                Kelas.find((err, list) => {
+                    if (!err) {
+                        // console.log(list)
+                        res.render('form-user', {
+                            msg: "NIS SUDAH ADA !",
+                            clas: list,
+                            title: req.session.adminUser
+                        });
+                    } else {
+                        res.send(404);
+                        console.log(err);
+                    }
+                });
             }
             else {
                 const kelas = req.body.classSelect;

@@ -5,8 +5,8 @@
 </div>
 <div class="jumbotron">
     <% for (var i=0; i< list.length; i++){ %>
-    <div class="row">
-        <div class="col-md card animated fadeInDownBig" style="width: 20rem;">
+    <div class="row justify-content-center">
+        <div class="col-md-4 card animated fadeInDownBig" style="width: 20rem;">
             <img src="../<%= list[i].kandidatImg %>" class="card-img-top mt-2" alt="UNKNOWN">
             <div class="card-body">
                 <h5 class="card-title text-center"><%= list[i].nama %></h5>
@@ -20,7 +20,7 @@
         </div>
         <% i = i+1; %>
         <% if (i != list.length ){ %>
-        <div class="col-md card animated fadeInDownBig" style="width: 20rem;">
+        <div class="col-md-4 card animated fadeInDownBig" style="width: 20rem;">
             <img src="../<%= list[i].kandidatImg %>" class="card-img-top mt-2" alt="UNKNOWN">
             <div class="card-body">
                 <h5 class="card-title text-center"><%= list[i].nama %></h5>

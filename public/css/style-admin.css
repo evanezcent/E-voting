@@ -153,12 +153,12 @@ nav a{
     font-weight: bold;
     color: white;
 }
-.list-kandidat{
+.row{
     justify-content: center;
     margin: 3em 0;
     display: flex;
 }
-.list-kandidat .card{
+.row .card{
     margin: 0 5px;
 }
 #card-btn1{
@@ -218,11 +218,11 @@ nav a{
         margin-top: 2vh;
         margin-bottom: 2vh;
     }
-    .list-kandidat{
+    .row{
         display: block;
     }
-    .list-kandidat .card{
-        margin: 0 15vw;
+    .row .card{
+        margin: 2vh auto;
     }
     #card-btn1 a{
         margin: 2px auto;
