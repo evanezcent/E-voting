@@ -89,7 +89,7 @@ router.post('/change', (req, res) => {
                 if (pass.length < 6) {
                     res.render("change-password", { msg: "PASSWORD IS TOO SHORT !", title: req.session.adminUser });
                 }
-                else if (pass != repass){
+                else if (pass != repass) {
                     res.render("change-password", { msg: "PASSWORD DO NOT MATCH !", title: req.session.adminUser });
                 }
                 else {
@@ -109,7 +109,7 @@ router.post('/change', (req, res) => {
 router.get('/kelas', failLoginAdmin, (req, res) => {
     Kelas.find((err, docs) => {
         if (!err) {
-            User.find((err, list) => {
+            User.find({ deleteStatus: false },(err, list) => {
                 if (!err) {
                     res.render("admin-kelas", {
                         list: docs,
@@ -132,9 +132,26 @@ router.get('/input-kelas', failLoginAdmin, (req, res) => {
     res.render('form-kelas', { msg: "", title: req.session.adminUser });
 });
 router.get('/delete-kelas/:id', (req, res) => {
-    Kelas.remove({ _id: req.params.id }, (err, result) => {
-        if (!err) res.redirect('/admin/kelas');
-        else{
+    Kelas.findOne({ _id: req.params.id }, (err, docs) => {
+        console.log(docs.kelas)
+        if (!err) {
+            User.updateMany({ kelas: docs.kelas}, { $set: { nis: 0, deleteStatus: true } }, (err, result) => {
+                if(err) {
+                    res.send(404);
+                    console.log(err);
+                }else console.log("SUCCESS")
+            });
+        }
+        else {
+            res.send(404);
+            console.log(err);
+        }
+    });
+    Kelas.deleteOne({ _id: req.params.id }, (err, result) => {
+        if (!err) {
+            res.redirect('/admin/kelas')
+        }
+        else {
             res.send(404);
             console.log(err);
         }
