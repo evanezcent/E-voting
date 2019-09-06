@@ -1,4 +1,6 @@
-
+body{
+    background-color: white;
+}
 .container-fluid{
     padding:  0 0;
     margin: 0 0;
