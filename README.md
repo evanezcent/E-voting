@@ -4,9 +4,9 @@
 > npm install
 
 **Run Project**
->npm start
+> npm start
 
-Then in browser type ```localhost:3000/```
+Then in browser type ```localhost:3000/``` and dont forget your mongoDB cluster
 
 ## TODO :
 * Front-end :
@@ -49,6 +49,6 @@ Then in browser type ```localhost:3000/```
   - [x] Admin Log Out
   - [x] User Log Out
   - [x] Pagination
-  - [x] Sum of Suara 
-  - [x] SHow Suara in Chart JS
+  - [x] Sum of vote result 
+  - [x] Show vote result in Chart JS
 
